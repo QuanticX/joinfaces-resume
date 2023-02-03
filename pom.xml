@@ -11,12 +11,12 @@
     </parent>
 
     <groupId>org.joinfaces</groupId>
-    <artifactId>joinfaces-example</artifactId>
+    <artifactId>joinfaces-resume</artifactId>
     <version>5.0.x</version>
     <packaging>jar</packaging>
 
-    <name>JoinFaces Example</name>
-    <description>Example project for Jsf Spring Boot Starter</description>
+    <name>JoinFaces Resume</name>
+    <description>Resume project with Jsf Spring Boot Starter</description>
 
     <properties>
         <!-- compile library versions -->
@@ -24,6 +24,7 @@
         <joinfaces.version>5.0.2</joinfaces.version>
         <maven-model.version>3.8.7</maven-model.version>
         <httpclient5.version>5.2.1</httpclient5.version>
+        <java.source>17</java.source>
 
         <!-- test library versions -->
         <selenium.version>4.8.0</selenium.version>
@@ -69,7 +70,7 @@
 
         <dependency-check-maven.version>8.0.1</dependency-check-maven.version>
         <sonar-maven-plugin.version>3.9.1.2184</sonar-maven-plugin.version>
-        <sonar.projectKey>joinfaces_joinfaces-maven-jar-example</sonar.projectKey>
+        <sonar.projectKey>joinfaces_joinfaces-maven-jar-resume</sonar.projectKey>
         <sonar.organization>joinfaces</sonar.organization>
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
     </properties>
@@ -198,7 +199,11 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>		
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.joinfaces</groupId>
             <artifactId>primefaces-spring-boot-starter</artifactId>
@@ -261,6 +266,11 @@
             <groupId>org.apache.httpcomponents.client5</groupId>
             <artifactId>httpclient5</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <build>
@@ -274,6 +284,8 @@
                         <failOnWarning>true</failOnWarning>
                         <failOnError>true</failOnError>
                         <showDeprecation>true</showDeprecation>
+                        <source>${java.source}</source>
+                        <target>${java.source}</target>
                     </configuration>
                 </plugin>
                 <plugin>
