@@ -16,7 +16,9 @@
 
 package org.joinfaces.resume.security.dto;
 
+import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import lombok.Builder;
@@ -24,6 +26,8 @@ import lombok.Getter;
 import lombok.Setter;
 import org.joinfaces.resume.common.pojo.AbstractDto;
 import org.joinfaces.resume.security.module.MutableUserDetails;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 /**
  * User Credentials.
@@ -60,5 +64,13 @@ public class UserCredentialsDto extends AbstractDto implements MutableUserDetail
 	@Override
 	public boolean isEnabled() {
 		return enabled;
+	}
+
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities(){
+		return authorities.stream()
+				.map(authority ->
+						new SimpleGrantedAuthority(authority)
+				).collect(Collectors.toList());
 	}
 }

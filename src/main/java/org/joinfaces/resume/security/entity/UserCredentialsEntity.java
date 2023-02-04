@@ -19,14 +19,15 @@ package org.joinfaces.resume.security.entity;
 import jakarta.persistence.Column;
 import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
-import jakarta.persistence.UniqueConstraint;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.joinfaces.resume.common.entity.AbstractEntity;
 import org.joinfaces.resume.security.module.MutableUserDetails;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
+import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * User Credentials.
@@ -36,6 +37,8 @@ import java.util.List;
 @Getter
 @Setter
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class UserCredentialsEntity extends AbstractEntity implements MutableUserDetails {
 	@Column(unique = true)
 	private String username;
@@ -47,9 +50,7 @@ public class UserCredentialsEntity extends AbstractEntity implements MutableUser
 	private Boolean credentialsNonExpired;
 	private Boolean enabled;
 
-	public UserCredentialsEntity() {
 
-	}
 
 	@Override
 	public boolean isAccountNonExpired() {
@@ -69,5 +70,13 @@ public class UserCredentialsEntity extends AbstractEntity implements MutableUser
 	@Override
 	public boolean isEnabled() {
 		return enabled;
+	}
+
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities(){
+		return authorities.stream()
+				.map(authority ->
+						new SimpleGrantedAuthority(authority)
+				).collect(Collectors.toList());
 	}
 }

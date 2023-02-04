@@ -23,7 +23,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * JoinFaces Example Configuration class.
  * @author Marcelo Fernandes
  */
-@SpringBootApplication
+@SpringBootApplication( scanBasePackages = "org.joinfaces")
 public class JoinFacesExampleApplication {
 
 	/**

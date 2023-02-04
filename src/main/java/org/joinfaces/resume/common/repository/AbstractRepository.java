@@ -11,5 +11,5 @@ public interface AbstractRepository<T extends AbstractEntity> extends CrudReposi
 
     List<T> findAll();
 
-    List<T> findAllById(List<Long> ids);
+    List<T> findAllByIdIn(List<Long> ids);
 }

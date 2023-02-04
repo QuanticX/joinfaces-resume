@@ -18,9 +18,11 @@ package org.joinfaces.resume.security.config;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
+import org.joinfaces.resume.security.config.ApplicationUsers;
 import org.joinfaces.resume.security.dto.UserCredentialsDto;
 import org.joinfaces.resume.security.module.JpaUserDetailsManager;
 import org.springframework.beans.factory.BeanCreationException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -30,6 +32,8 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+
+import java.util.stream.Collectors;
 
 /**
  * Spring Security Configuration.
@@ -41,51 +45,55 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableConfigurationProperties(ApplicationUsers.class)
 public class SecurityConfig {
 
-	/**
-	 * Configure security.
-	 **/
-	@SuppressFBWarnings("SPRING_CSRF_PROTECTION_DISABLED")
-	@Bean
-	public SecurityFilterChain configure(HttpSecurity http) {
-		try {
-			http.csrf().disable();
-			http
-				.authorizeHttpRequests((authorize) -> authorize
-				.requestMatchers("/").permitAll()
-				.requestMatchers("/**.jsf").permitAll()
-				.requestMatchers("/jakarta.faces.resource/**").permitAll()
-				.anyRequest().authenticated())
-				.formLogin()
-				.loginPage("/login.jsf")
-				.permitAll()
-				.failureUrl("/login.jsf?error=true")
-				.defaultSuccessUrl("/starter.jsf")
-				.and()
-				.logout()
-				.logoutSuccessUrl("/login.jsf")
-				.deleteCookies("JSESSIONID");
-			return http.build();
-		}
-		catch (Exception ex) {
-			throw new BeanCreationException("Wrong spring security configuration", ex);
-		}
-	}
+    @Autowired
+    private JpaUserDetailsManager jpaUserDetailsManager;
 
-	/**
-	 * UserDetailsService that configures an in-memory users store.
-	 * @param applicationUsers - autowired users from the application.yml file
-	 * @return InMemoryUserDetailsManager - a manager that keeps all the users' info in the memory
-	 */
-	@Bean
-	public JpaUserDetailsManager userDetailsService(ApplicationUsers applicationUsers) {
-		PasswordEncoder encoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
-		JpaUserDetailsManager result = new JpaUserDetailsManager();
-		for (UserCredentialsDto userCredentialsDto : applicationUsers.getUsersCredentials()) {
-			result.createUser(User.builder()
-				.username(userCredentialsDto.getUsername())
-				.password(encoder.encode(userCredentialsDto.getPassword()))
-				.authorities(userCredentialsDto.getAuthorities().toArray(new String[0])).build());
-		}
-		return result;
-	}
+    /**
+     * Configure security.
+     **/
+    @SuppressFBWarnings("SPRING_CSRF_PROTECTION_DISABLED")
+    @Bean
+    public SecurityFilterChain configure(HttpSecurity http) {
+        try {
+            http.csrf().disable();
+            http
+                    .authorizeHttpRequests((authorize) -> authorize
+                            .requestMatchers("/").permitAll()
+                            .requestMatchers("/**.jsf").permitAll()
+                            .requestMatchers("/jakarta.faces.resource/**").permitAll()
+                            .anyRequest().authenticated())
+                    .formLogin()
+                    .loginPage("/login.jsf")
+                    .permitAll()
+                    .failureUrl("/login.jsf?error=true")
+                    .defaultSuccessUrl("/starter.jsf")
+                    .and()
+                    .logout()
+                    .logoutSuccessUrl("/login.jsf")
+                    .deleteCookies("JSESSIONID");
+            return http.build();
+        } catch (Exception ex) {
+            throw new BeanCreationException("Wrong spring security configuration", ex);
+        }
+    }
+
+    /**
+     * UserDetailsService that configures an in-memory users store.
+     *
+     * @param applicationUsers - autowired users from the application.yml file
+     * @return InMemoryUserDetailsManager - a manager that keeps all the users' info in the memory
+     */
+    @Bean
+    public JpaUserDetailsManager userDetailsService(ApplicationUsers applicationUsers) {
+        for (UserCredentialsDto userCredentialsDto : applicationUsers.getUsersCredentials()) {
+            jpaUserDetailsManager.createUser(User.builder()
+                    .username(userCredentialsDto.getUsername())
+                    .password(userCredentialsDto.getPassword())
+                    .authorities(userCredentialsDto.getAuthorities().stream()
+                            .map(authority -> authority.getAuthority())
+                            .collect(Collectors.toList())
+                            .toArray(new String[0])).build());
+        }
+        return jpaUserDetailsManager;
+    }
 }

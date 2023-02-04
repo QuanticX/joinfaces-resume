@@ -7,13 +7,13 @@ import org.joinfaces.resume.security.repository.UserCredentialsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-@Service
+@Component
 public class UserCredentialsService extends AbstractService<UserCredentialsEntity, UserCredentialsDto> {
 
     private static final PasswordEncoder encoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
@@ -32,7 +32,10 @@ public class UserCredentialsService extends AbstractService<UserCredentialsEntit
     public UserCredentialsDto add(UserCredentialsDto userCredentialsDto) {
         UserCredentialsEntity userCredentialsEntity = UserCredentialsEntity.builder()
                 .username(userCredentialsDto.getUsername())
-                .authorities(userCredentialsDto.getAuthorities())
+                .authorities(userCredentialsDto.getAuthorities().stream()
+                        .map(grantedAuthority -> grantedAuthority.getAuthority())
+                        .collect(Collectors.toList())
+                )
                 .password(encoder.encode(userCredentialsDto.getPassword()))
                 .accountNonExpired(userCredentialsDto.getAccountNonExpired())
                 .accountNonLocked(userCredentialsDto.getAccountNonLocked())
@@ -42,7 +45,9 @@ public class UserCredentialsService extends AbstractService<UserCredentialsEntit
         userCredentialsEntity = this.userCredentialsRepository.save(userCredentialsEntity);
         userCredentialsDto = UserCredentialsDto.builder()
                 .username(userCredentialsEntity.getUsername())
-                .authorities(userCredentialsEntity.getAuthorities())
+                .authorities(userCredentialsEntity.getAuthorities().stream()
+                .map(grantedAuthority -> grantedAuthority.getAuthority())
+                .collect(Collectors.toList()))
                 .password(userCredentialsEntity.getPassword())
                 .accountNonExpired(userCredentialsEntity.getAccountNonExpired())
                 .accountNonLocked(userCredentialsEntity.getAccountNonLocked())
@@ -55,7 +60,9 @@ public class UserCredentialsService extends AbstractService<UserCredentialsEntit
     public List<UserCredentialsDto> readAll() {
         return this.userCredentialsRepository.findAll().stream().map(userCredentialsEntity -> UserCredentialsDto.builder()
                 .username(userCredentialsEntity.getUsername())
-                .authorities(userCredentialsEntity.getAuthorities())
+                .authorities(userCredentialsEntity.getAuthorities().stream()
+                        .map(grantedAuthority -> grantedAuthority.getAuthority())
+                        .collect(Collectors.toList()))
                 .password(encoder.encode(userCredentialsEntity.getPassword()))
                 .accountNonExpired(userCredentialsEntity.getAccountNonExpired())
                 .accountNonLocked(userCredentialsEntity.getAccountNonLocked())
@@ -70,7 +77,9 @@ public class UserCredentialsService extends AbstractService<UserCredentialsEntit
         if (optionalUserCredentialsEntity.isPresent()) {
             return UserCredentialsDto.builder()
                     .username(optionalUserCredentialsEntity.get().getUsername())
-                    .authorities(optionalUserCredentialsEntity.get().getAuthorities())
+                    .authorities(optionalUserCredentialsEntity.get().getAuthorities().stream()
+                            .map(grantedAuthority -> grantedAuthority.getAuthority())
+                            .collect(Collectors.toList()))
                     .password(encoder.encode(optionalUserCredentialsEntity.get().getPassword()))
                     .accountNonExpired(optionalUserCredentialsEntity.get().getAccountNonExpired())
                     .accountNonLocked(optionalUserCredentialsEntity.get().getAccountNonLocked())
@@ -84,9 +93,11 @@ public class UserCredentialsService extends AbstractService<UserCredentialsEntit
 
     @Override
     public List<UserCredentialsDto> readAllIn(List<Long> id) {
-        return this.userCredentialsRepository.findAllById(id).stream().map(userCredentialsEntity -> UserCredentialsDto.builder()
+        return this.userCredentialsRepository.findAllByIdIn(id).stream().map(userCredentialsEntity -> UserCredentialsDto.builder()
                 .username(userCredentialsEntity.getUsername())
-                .authorities(userCredentialsEntity.getAuthorities())
+                .authorities(userCredentialsEntity.getAuthorities().stream()
+                        .map(grantedAuthority -> grantedAuthority.getAuthority())
+                        .collect(Collectors.toList()))
                 .password(encoder.encode(userCredentialsEntity.getPassword()))
                 .accountNonExpired(userCredentialsEntity.getAccountNonExpired())
                 .accountNonLocked(userCredentialsEntity.getAccountNonLocked())
@@ -109,7 +120,9 @@ public class UserCredentialsService extends AbstractService<UserCredentialsEntit
     public void delete(UserCredentialsDto userCredentialsDto) {
         this.userCredentialsRepository.delete(UserCredentialsEntity.builder()
                 .username(userCredentialsDto.getUsername())
-                .authorities(userCredentialsDto.getAuthorities())
+                .authorities(userCredentialsDto.getAuthorities().stream()
+                        .map(grantedAuthority -> grantedAuthority.getAuthority())
+                        .collect(Collectors.toList()))
                 .password(encoder.encode(userCredentialsDto.getPassword()))
                 .accountNonExpired(userCredentialsDto.getAccountNonExpired())
                 .accountNonLocked(userCredentialsDto.getAccountNonLocked())

@@ -11,6 +11,7 @@ import java.time.LocalDateTime;
 @Setter
 public abstract class AbstractEntity {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     protected Long id;
     @Version
     protected Long version;
