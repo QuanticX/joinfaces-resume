@@ -18,21 +18,20 @@ package org.joinfaces.resume.security.config;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
-import org.joinfaces.resume.security.config.ApplicationUsers;
-import org.joinfaces.resume.security.dto.UserCredentialsDto;
-import org.joinfaces.resume.security.module.JpaUserDetailsManager;
 import org.springframework.beans.factory.BeanCreationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.User;
-import org.springframework.security.crypto.factory.PasswordEncoderFactories;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
+import javax.sql.DataSource;
 import java.util.stream.Collectors;
 
 /**
@@ -46,7 +45,8 @@ import java.util.stream.Collectors;
 public class SecurityConfig {
 
     @Autowired
-    private JpaUserDetailsManager jpaUserDetailsManager;
+    private DataSource dataSource;
+
 
     /**
      * Configure security.
@@ -77,23 +77,24 @@ public class SecurityConfig {
         }
     }
 
-    /**
-     * UserDetailsService that configures an in-memory users store.
-     *
-     * @param applicationUsers - autowired users from the application.yml file
-     * @return InMemoryUserDetailsManager - a manager that keeps all the users' info in the memory
-     */
-    @Bean
-    public JpaUserDetailsManager userDetailsService(ApplicationUsers applicationUsers) {
-        for (UserCredentialsDto userCredentialsDto : applicationUsers.getUsersCredentials()) {
-            jpaUserDetailsManager.createUser(User.builder()
-                    .username(userCredentialsDto.getUsername())
-                    .password(userCredentialsDto.getPassword())
-                    .authorities(userCredentialsDto.getAuthorities().stream()
-                            .map(authority -> authority.getAuthority())
-                            .collect(Collectors.toList())
-                            .toArray(new String[0])).build());
+    @Autowired
+    public void configureGlobal(AuthenticationManagerBuilder auth, PasswordEncoder passwordEncoder, ApplicationUsers applicationUsers) throws Exception {
+        var jdbcAuthentication = auth.jdbcAuthentication().dataSource(dataSource).usersByUsernameQuery("select username,password,enabled "
+                + "from users "
+                + "where username = ?")
+                .authoritiesByUsernameQuery("select username,authority "
+                        + "from authorities "
+                        + "where username = ?");
+
+        for ( var applicationUser : applicationUsers.getUsersCredentials()) {
+            jdbcAuthentication
+                    .withUser(User.withUsername(applicationUser.getUsername())
+                            .password(passwordEncoder.encode(applicationUser.getPassword()))
+                            .roles(applicationUser.getAuthorities()
+                                    .toArray(new String[0])));
         }
-        return jpaUserDetailsManager;
+
     }
+
+
 }

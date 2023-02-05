@@ -24,6 +24,7 @@ import jakarta.faces.view.ViewScoped;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import lombok.Getter;
 import lombok.Setter;
+import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 import org.primefaces.model.file.UploadedFile;
@@ -69,4 +70,5 @@ public class FileMBean implements Serializable {
 				.build();
 		}
 	}
+
 }

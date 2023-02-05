@@ -25,7 +25,6 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import org.joinfaces.resume.common.pojo.AbstractDto;
-import org.joinfaces.resume.security.module.MutableUserDetails;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
@@ -36,7 +35,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 @Getter
 @Setter
 @Builder
-public class UserCredentialsDto extends AbstractDto implements MutableUserDetails {
+public class UserCredentialsDto extends AbstractDto {
 	private String username;
 	private String password;
 	@SuppressFBWarnings("EI_EXPOSE_REP")
@@ -46,31 +45,5 @@ public class UserCredentialsDto extends AbstractDto implements MutableUserDetail
 	private Boolean credentialsNonExpired;
 	private Boolean enabled;
 
-	@Override
-	public boolean isAccountNonExpired() {
-		return accountNonExpired;
-	}
 
-	@Override
-	public boolean isAccountNonLocked() {
-		return accountNonLocked;
-	}
-
-	@Override
-	public boolean isCredentialsNonExpired() {
-		return credentialsNonExpired;
-	}
-
-	@Override
-	public boolean isEnabled() {
-		return enabled;
-	}
-
-	@Override
-	public Collection<? extends GrantedAuthority> getAuthorities(){
-		return authorities.stream()
-				.map(authority ->
-						new SimpleGrantedAuthority(authority)
-				).collect(Collectors.toList());
-	}
 }

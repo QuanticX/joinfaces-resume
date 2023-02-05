@@ -14,16 +14,20 @@ application-users:
   users-credentials:
     - username: persapiens
       password: 123
-      authorities: ROLE_ADMIN
+      authorities: ADMIN
     - username: nyilmaz
       password: qwe
-      authorities: ROLE_USER
+      authorities: USER
 spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/resume
     username: postgres
     password: password
     driver-class-name: org.postgresql.Driver
+  sql:
+    init:
+      mode: always
+      platform: postgre
   jpa:
     properties:
       hibernate:

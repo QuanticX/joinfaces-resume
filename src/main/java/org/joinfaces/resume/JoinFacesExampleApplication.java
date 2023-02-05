@@ -18,12 +18,15 @@ package org.joinfaces.resume;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 /**
  * JoinFaces Example Configuration class.
  * @author Marcelo Fernandes
  */
-@SpringBootApplication( scanBasePackages = "org.joinfaces")
+@SpringBootApplication
 public class JoinFacesExampleApplication {
 
 	/**
@@ -31,5 +34,10 @@ public class JoinFacesExampleApplication {
 	*/
 	public static void main(String[] args) {
 		SpringApplication.run(JoinFacesExampleApplication.class, args);
+	}
+
+	@Bean
+	public PasswordEncoder passwordEncoder() {
+		return new BCryptPasswordEncoder();
 	}
 }
