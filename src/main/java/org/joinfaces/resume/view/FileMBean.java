@@ -16,9 +16,11 @@
 
 package org.joinfaces.resume.view;
 
-import java.io.IOException;
-import java.io.Serializable;
+import java.io.*;
+import java.net.URI;
+import java.net.URISyntaxException;
 
+import jakarta.enterprise.context.SessionScoped;
 import jakarta.faces.view.ViewScoped;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -34,41 +36,50 @@ import org.springframework.stereotype.Component;
 
 /**
  * FileMBean to test primefaces upload component.
+ *
  * @author Marcelo Fernandes
  */
 @SuppressFBWarnings("THROWS_METHOD_THROWS_RUNTIMEEXCEPTION")
 @Component
-@ViewScoped
+@SessionScoped
 public class FileMBean implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	@SuppressFBWarnings("EI_EXPOSE_REP")
-	@Getter
-	@Setter
-	private transient UploadedFile uploadedFile;
+    @Getter
+    private transient UploadedFile uploadedFile;
 
-	@Getter
-	private transient StreamedContent downloadFile;
+    @SuppressFBWarnings("EI_EXPOSE_REP")
+    @Getter
+    @Setter
+    private transient UploadedFile uploadFile;
 
-	/**
-	* Upload file action.
-	*/
-	public void upload() {
-		if (this.uploadedFile != null) {
-			this.downloadFile = DefaultStreamedContent.builder()
-				.stream(() -> {
-					try {
-						return this.uploadedFile.getInputStream();
-					}
-					catch (IOException ex) {
-						throw new RuntimeException(ex);
-					}
-				})
-				.contentType(this.uploadedFile.getContentType())
-				.name(this.uploadedFile.getFileName())
-				.build();
-		}
-	}
+    @Getter
+    private transient StreamedContent downloadFile;
+
+    private transient String fileName;
+    private transient String contentType;
+    private transient byte[] contents;
+
+
+    /**
+     * Upload file action.
+     */
+    public void upload() {
+        if (uploadFile != null) {
+            this.uploadedFile = uploadFile;
+            if (this.uploadedFile != null) {
+                fileName = uploadedFile.getFileName();
+                contentType = uploadedFile.getContentType();
+                contents = uploadedFile.getContent();
+                this.downloadFile = DefaultStreamedContent.builder()
+                        .stream(() -> new ByteArrayInputStream(contents))
+                        .contentType(contentType)
+                        .name(fileName)
+                        .build();
+            }
+        }
+
+    }
 
 }
