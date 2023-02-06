@@ -16,17 +16,13 @@
 
 package org.joinfaces.resume.security.dto;
 
-import java.util.Collection;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
-import org.joinfaces.resume.common.pojo.AbstractDto;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.joinfaces.resume.common.dto.AbstractDto;
 
 /**
  * User Credentials.

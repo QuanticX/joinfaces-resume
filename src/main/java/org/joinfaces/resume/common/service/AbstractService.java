@@ -1,9 +1,7 @@
 package org.joinfaces.resume.common.service;
 
 import org.joinfaces.resume.common.entity.AbstractEntity;
-import org.joinfaces.resume.common.pojo.AbstractDto;
-import org.joinfaces.resume.common.repository.AbstractRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.joinfaces.resume.common.dto.AbstractDto;
 import org.springframework.stereotype.Component;
 
 import java.util.List;

@@ -1,14 +1,14 @@
-package org.joinfaces.resume.common.pojo;
+package org.joinfaces.resume.common.dto;
 
-import jakarta.persistence.Version;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @Getter
 @Setter
-public abstract class AbstractDto {
+public abstract class AbstractDto implements Serializable {
     protected Long id;
     protected Long version;
     protected LocalDateTime createdAt;

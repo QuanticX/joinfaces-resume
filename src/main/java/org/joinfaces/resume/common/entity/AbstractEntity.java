@@ -4,12 +4,13 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @Entity
 @Getter
 @Setter
-public abstract class AbstractEntity {
+public abstract class AbstractEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     protected Long id;
