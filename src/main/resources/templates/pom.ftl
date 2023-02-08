@@ -1,6 +1,6 @@
 <#ftl output_format="XML">
-<#-- @ftlvariable name="starterService" type="org.joinfaces.resume.view.JoinFacesStarterService" -->
-<#-- @ftlvariable name="starterMBean" type="org.joinfaces.resume.view.StarterMBean" -->
+<#-- @ftlvariable name="starterService" type="org.joinfaces.view.JoinFacesStarterService" -->
+<#-- @ftlvariable name="starterMBean" type="org.joinfaces.view.StarterMBean" -->
 <parent>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
