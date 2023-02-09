@@ -5,6 +5,7 @@ import jakarta.persistence.Entity;
 import lombok.*;
 import org.joinfaces.common.entity.AbstractEntity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -26,12 +27,12 @@ public class ExperienceEntity extends AbstractEntity {
 	private String jobDescription;
 
 	@ElementCollection
-	private List<String> jobFonctions;
+	private List<String> jobFonctions = new ArrayList<>();
 
 	private String jobTeamAndMethod;
 
 	@ElementCollection
-	private List<String> jobTasks;
+	private List<String> jobTasks = new ArrayList<>();
 
 	private String jobSkills;
 }

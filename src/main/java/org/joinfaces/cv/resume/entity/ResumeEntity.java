@@ -11,6 +11,7 @@ import org.joinfaces.cv.formation.entity.FormationEntity;
 import org.joinfaces.cv.information.entity.InformationEntity;
 import org.joinfaces.cv.language.entity.LanguageEntity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Builder
@@ -29,11 +30,11 @@ public class ResumeEntity extends AbstractEntity {
     @JoinColumn(name = "information_id")
     private InformationEntity information;
     @OneToMany
-    private List<FormationEntity> formations;
+    private List<FormationEntity> formations = new ArrayList<>();
     @OneToMany
-    private List<LanguageEntity> languages;
+    private List<LanguageEntity> languages = new ArrayList<>();
     @OneToMany
-    private List<ExperienceEntity> experiences;
+    private List<ExperienceEntity> experiences = new ArrayList<>();
     @OneToMany
-    private List<CertificationEntity> certifications;
+    private List<CertificationEntity> certifications = new ArrayList<>();
 }

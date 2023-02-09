@@ -16,4 +16,9 @@ public class FormationDto extends AbstractDto {
  @PastOrPresent
  private Year date;
 
+ @Override
+ public FormationDto clone(){
+  return FormationDto.builder().date(date).name(name).build();
+ }
+
 }

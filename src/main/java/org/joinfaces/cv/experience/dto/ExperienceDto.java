@@ -27,4 +27,19 @@ public class ExperienceDto extends AbstractDto {
 	private List<String> jobTasks;
 
 	private String jobSkills;
+
+	@Override
+	public ExperienceDto clone(){
+		return ExperienceDto.builder()
+				.jobTitle(jobTitle)
+				.jobPeriode(jobPeriode)
+				.jobClient(jobClient)
+				.jobProject(jobProject)
+				.jobDescription(jobDescription)
+				.jobFonctions(jobFonctions.stream().map(String::new).toList())
+				.jobTeamAndMethod(jobTeamAndMethod)
+				.jobTasks(jobTasks.stream().map(String::new).toList())
+				.jobSkills(jobSkills)
+				.build();
+	}
 }

@@ -1,13 +1,13 @@
 package org.joinfaces.cv.information.dto;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.joinfaces.common.dto.AbstractDto;
 
 @Builder
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class InformationDto extends AbstractDto {
 
 	private String name;
@@ -30,5 +30,9 @@ public class InformationDto extends AbstractDto {
 
 	private String skillsTools;
 
-
+	@Override
+	public InformationDto clone() {
+		return new InformationDto(name,title,yearOfExperience,subTitle,skillsWork,
+				skillsFramworksLanguages,skillsOs,skillsMethods,skillsDb,skillsTools);
+	}
 }

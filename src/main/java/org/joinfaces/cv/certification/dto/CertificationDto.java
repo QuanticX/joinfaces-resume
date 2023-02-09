@@ -16,4 +16,9 @@ public class CertificationDto extends AbstractDto {
  @PastOrPresent
  private Year date;
 
+ @Override
+ public CertificationDto clone(){
+  return CertificationDto.builder().date(date).name(name).build();
+ }
+
 }

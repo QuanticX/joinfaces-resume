@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pe="http://primefaces.org/ui/extensions"
+                xmlns:o="http://omnifaces.org/ui"
+                xmlns:sec="https://joinfaces.org/security"
+                template="/template.xhtml">
+    <ui:define name="content">
+        <div class="card crud-demo">
+            <h:form id="form">
+                <p:growl id="messages" showDetail="true" />
+
+                <p:dataTable id="dt-resumes" widgetVar="dtResumes" var="resume" value="#{crudView.resumes}"
+                             reflow="true" styleClass="products-table" selection="#{crudView.selectedResumes}"
+                             rowKey="#{resume.id}" paginator="true" rows="10" rowSelectMode="add" paginatorPosition="bottom">
+                    <f:facet name="header">
+                        <div class="products-table-header">
+                            <span style="font-weight: bold">Resume</span>
+                            <span class="filter-container ui-input-icon-left"> <i class="pi pi-search"></i>
+                        <p:inputText id="globalFilter" onkeyup="PF('dtResumes').filter()" placeholder="Search" />
+                    </span>
+                        </div>
+                    </f:facet>
+
+                    <p:column selectionMode="multiple" exportable="false"></p:column>
+
+                    <p:column headerText="Id" sortBy="#{resume.id}" filterBy="#{resume.id}">
+                        <h:outputText value="#{resume.id}" />
+                    </p:column>
+                    <p:column headerText="Email" sortBy="#{resume.email}" filterBy="#{resume.email}">
+                        <h:outputText value="#{resume.email}" />
+                    </p:column>
+                    <p:column headerText="Name" sortBy="#{resume.information.name}" filterBy="#{resume.information.name}">
+                        <h:outputText value="#{resume.information.name}" />
+                    </p:column>
+                    <p:column headerText="Title" sortBy="#{resume.information.title}" filterBy="#{resume.information.title}">
+                        <h:outputText value="#{resume.information.title}" />
+                    </p:column>
+                    <p:column headerText="Year" sortBy="#{resume.information.yearOfExperience}" filterBy="#{resume.information.yearOfExperience}">
+                        <h:outputText value="#{resume.information.yearOfExperience}" />
+                    </p:column>
+                    <p:column headerText="SubTitle" sortBy="#{resume.information.subTitle}" filterBy="#{resume.information.subTitle}">
+                        <h:outputText value="#{resume.information.subTitle}" />
+                    </p:column>
+                    <p:column headerText="SkillsWork" sortBy="#{resume.information.skillsWork}" filterBy="#{resume.information.skillsWork}">
+                        <h:outputText value="#{resume.information.skillsWork}" />
+                    </p:column>
+                    <p:column headerText="FramworksLanguages" sortBy="#{resume.information.skillsFramworksLanguages}" filterBy="#{resume.information.skillsFramworksLanguages}">
+                        <h:outputText value="#{resume.information.skillsFramworksLanguages}" />
+                    </p:column>
+                    <p:column headerText="Os" sortBy="#{resume.information.skillsOs}" filterBy="#{resume.information.skillsOs}">
+                        <h:outputText value="#{resume.information.skillsOs}" />
+                    </p:column>
+                    <p:column headerText="Methods" sortBy="#{resume.information.skillsMethods}" filterBy="#{resume.information.skillsMethods}">
+                        <h:outputText value="#{resume.information.skillsMethods}" />
+                    </p:column>
+                    <p:column headerText="Db" sortBy="#{resume.information.skillsDb}" filterBy="#{resume.information.skillsDb}">
+                        <h:outputText value="#{resume.information.skillsDb}" />
+                    </p:column>
+                    <p:column headerText="Tools" sortBy="#{resume.information.skillsTools}" filterBy="#{resume.information.skillsTools}">
+                        <h:outputText value="#{resume.information.skillsTools}" />
+                    </p:column>
+
+                </p:dataTable>
+            </h:form>
+
+            
+        </div>
+    </ui:define>
+</ui:composition>

@@ -113,7 +113,7 @@ public class FillTemplateResumeDocx {
 		datas.setYearOfExperience("4");
 		datas.setTitle("DEVELOPPEUR : JAVA EE SPRING ANGULAR");
 		datas.setSubTitle("ANALYSTE, DATA SCIENTIST, CONCEPTION ET DEVELOPPEMENT");
-		datas.setSkillsWork("COMMUNICATION, TRAVAIL EN EQUIPE, ADAPTABILITE, RIGUEUR,\n" + "ANALYSE, CREATIVITE");
+		datas.setSkillsWork("COMMUNICATION, TRAVAIL EN EQUIPE, ADAPTABILITE, RIGUEUR, ANALYSE, CREATIVITE");
 		datas.setSkillsFramworksLanguages("Java SE 8/11, Groovy, Scala, HTML5, JavaScript, JSON, XML/XPATH, "
 				+ "TypeScript, SQL, PL/SQL, Python, C, CSS, Matlab, R, Angular, Hibernate, Java"
 				+ "EE 7/8, JPA, REST, SOAP, JSP, JSF, Spring, Twitter Bootstrap, Spring Boot, "
