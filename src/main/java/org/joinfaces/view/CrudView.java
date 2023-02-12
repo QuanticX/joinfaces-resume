@@ -13,6 +13,7 @@ import jakarta.inject.Named;
 import lombok.Getter;
 import lombok.Setter;
 import org.joinfaces.cv.information.dto.InformationDto;
+import org.joinfaces.cv.language.dto.LanguageDto;
 import org.joinfaces.cv.resume.dto.ResumeDto;
 import org.joinfaces.cv.resume.service.ResumeService;
 import org.primefaces.PrimeFaces;
@@ -107,6 +108,10 @@ public class CrudView implements Serializable {
         this.selectedResume.setExperiences(new ArrayList<>());
         this.selectedResume.setLanguages(new ArrayList<>());
         this.selectedResume.setExperiences(new ArrayList<>());
+    }
+
+    public void createLanguage(){
+        this.selectedResume.getLanguages().add(new LanguageDto());
     }
 
     public void saveResume() {

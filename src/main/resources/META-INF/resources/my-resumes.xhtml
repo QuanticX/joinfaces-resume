@@ -110,10 +110,66 @@
                           responsive="true">
                     <p:outputPanel id="manage-resume-content" class="ui-fluid">
                         <p:outputPanel rendered="#{not empty crudView.selectedResume}">
+                            <div class="field">
+                                <p:outputLabel for="email">email</p:outputLabel>
+                                <p:inputText id="email" value="#{crudView.selectedResume.email}" required="true" />
+                            </div>
+                            <div class="field">
+                                <p:outputLabel for="name">name</p:outputLabel>
+                                <p:inputText id="name" value="#{crudView.selectedResume.information.name}" required="true" />
+                            </div>
+                            <div class="field">
+                                <p:outputLabel for="title">title</p:outputLabel>
+                                <p:inputText id="title" value="#{crudView.selectedResume.information.title}" required="true" />
+                            </div>
+                            <div class="field">
+                                <p:outputLabel for="yearOfExperience">year of experience</p:outputLabel>
+                                <p:inputText id="yearOfExperience" value="#{crudView.selectedResume.information.yearOfExperience}" required="true" />
+                            </div>
+                            <div class="field">
+                                <p:outputLabel for="subTitle">sub title</p:outputLabel>
+                                <p:inputText id="subTitle" value="#{crudView.selectedResume.information.subTitle}" required="true" />
+                            </div>
+                            <div class="field">
+                                <p:outputLabel for="skillsWork">skills work</p:outputLabel>
+                                <p:inputText id="skillsWork" value="#{crudView.selectedResume.information.skillsWork}" required="true" />
+                            </div>
+                            <div class="field">
+                                <p:outputLabel for="skillsFramworksLanguages">Frameworks/Languages</p:outputLabel>
+                                <p:inputText id="skillsFramworksLanguages" value="#{crudView.selectedResume.information.skillsFramworksLanguages}" required="true" />
+                            </div>
+                            <div class="field">
+                                <p:outputLabel for="skillsOs">operating system</p:outputLabel>
+                                <p:inputText id="skillsOs" value="#{crudView.selectedResume.information.skillsOs}" required="true" />
+                            </div>
+                            <div class="field">
+                                <p:outputLabel for="skillsMethods">method</p:outputLabel>
+                                <p:inputText id="skillsMethods" value="#{crudView.selectedResume.information.skillsMethods}" required="true" />
+                            </div>
+                            <div class="field">
+                                <p:outputLabel for="skillsDb">database</p:outputLabel>
+                                <p:inputText id="skillsDb" value="#{crudView.selectedResume.information.skillsDb}" required="true" />
+                            </div>
+                            <div class="field">
+                                <p:outputLabel for="skillsTools">tools</p:outputLabel>
+                                <p:inputText id="skillsTools" value="#{crudView.selectedResume.information.skillsTools}" required="true" />
+                            </div>
 
-
-                            TEST
-
+                            <p:commandButton value="New language">
+                                <p:ajax listener="#{crudView.createLanguage}"
+                                        process="@form"
+                                        render="@form" />
+                            </p:commandButton>
+                            <ui:repeat value="#{crudView.selectedResume.languages}" var="language">
+                                <div class="field">
+                                    <p:outputLabel>language</p:outputLabel>
+                                    <p:inputText value="#{language.name}" required="true" />
+                                </div>
+                                <div class="field">
+                                    <p:outputLabel >level</p:outputLabel>
+                                    <p:inputText value="#{language.level}" required="true" />
+                                </div>
+                            </ui:repeat>
                             <!-- TODO -->
                         </p:outputPanel>
                     </p:outputPanel>
