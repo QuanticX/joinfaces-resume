@@ -8,6 +8,8 @@ import java.util.List;
 @Getter
 @Setter
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class ExperienceDto extends AbstractDto {
 
 	private String jobTitle;

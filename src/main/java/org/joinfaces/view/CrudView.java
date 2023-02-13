@@ -1,6 +1,7 @@
 package org.joinfaces.view;
 
 import jakarta.annotation.PostConstruct;
+import jakarta.el.MethodExpression;
 import jakarta.enterprise.context.SessionScoped;
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.context.FacesContext;
@@ -12,6 +13,8 @@ import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import lombok.Getter;
 import lombok.Setter;
+import org.joinfaces.cv.experience.dto.ExperienceDto;
+import org.joinfaces.cv.formation.dto.FormationDto;
 import org.joinfaces.cv.information.dto.InformationDto;
 import org.joinfaces.cv.language.dto.LanguageDto;
 import org.joinfaces.cv.resume.dto.ResumeDto;
@@ -21,6 +24,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.context.annotation.SessionScope;
 
 import java.io.Serializable;
+import java.time.Year;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -55,7 +59,6 @@ public class CrudView implements Serializable {
     public List<ResumeDto> getSelectedResumes() {
         return selectedResumes;
     }
-
 
 
     public void setSelectedResumes(List<ResumeDto> selectedResumes) {
@@ -96,7 +99,10 @@ public class CrudView implements Serializable {
                                 + "IntelliJ IDEA, Visual Studio Code, Gitlab, Bamboo, Github")
                         .build()
 
-                ).build()
+                ).languages(new ArrayList<>())
+                .formations(new ArrayList<>())
+                .experiences(new ArrayList<>())
+                .languages(new ArrayList<>()).build()
         );
 
     }
@@ -104,22 +110,18 @@ public class CrudView implements Serializable {
     public void openNew() {
         this.selectedResume = new ResumeDto();
         this.selectedResume.setInformation(new InformationDto());
+        this.selectedResume.setFormations(new ArrayList<>());
         this.selectedResume.setCertifications(new ArrayList<>());
         this.selectedResume.setExperiences(new ArrayList<>());
         this.selectedResume.setLanguages(new ArrayList<>());
-        this.selectedResume.setExperiences(new ArrayList<>());
     }
 
-    public void createLanguage(){
-        this.selectedResume.getLanguages().add(new LanguageDto());
-    }
 
     public void saveResume() {
         if (this.selectedResume.getId() == null) {
             this.resumes.add(/*this.resumeService.add*/(this.selectedResume));
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Resume Added"));
-        }
-        else {
+        } else {
             //this.resumeService.update(this.selectedResume);
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Resume Updated"));
         }
@@ -159,4 +161,27 @@ public class CrudView implements Serializable {
         PrimeFaces.current().executeScript("PF('dtResumes').clearFilters()");
     }
 
+    public void createLanguage() {
+        this.selectedResume.getLanguages().add(new LanguageDto("", ""));
+    }
+
+    public void createFormation() {
+        this.selectedResume.getFormations().add(new FormationDto());
+    }
+
+    public void createCertification() {
+        this.selectedResume.getFormations().add(new FormationDto());
+    }
+
+    public void createExperience() {
+        this.selectedResume.getExperiences().add(new ExperienceDto("", "", "", "", "", new ArrayList<>(), "", new ArrayList<>(), ""));
+    }
+
+    public void createFonction(ExperienceDto experienceDto){
+        experienceDto.getJobFonctions().add("");
+    }
+
+    public void createTask(ExperienceDto experienceDto){
+        experienceDto.getJobTasks().add("");
+    }
 }
