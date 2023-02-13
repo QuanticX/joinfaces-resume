@@ -5,6 +5,7 @@
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:c="http://java.sun.com/jsp/jstl/core"
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:pe="http://primefaces.org/ui/extensions"
                 xmlns:o="http://omnifaces.org/ui"
@@ -120,7 +121,8 @@
 
             <h:form id="dialogs">
                 <p:dialog header="Resume Details" showEffect="fade" modal="false" widgetVar="manageResumeDialog"
-                          responsive="true" resizable="true" style="table-layout: auto; overflow: scroll; max-height: 70%">
+                          responsive="true" resizable="true"
+                          style="table-layout: auto; overflow: scroll; max-height: 70%">
                     <p:outputPanel id="manage-resume-content" class="ui-fluid">
                         <p:outputPanel rendered="#{not empty crudView.selectedResume}">
                             <div class="field">
@@ -218,34 +220,63 @@
                             </p:commandButton>
                             <ui:repeat value="#{crudView.selectedResume.experiences}" var="experience"
                                        varStatus="index">
-                                <div class="field">Experience #{index.index}</div>
-                                <div class="field">
-                                    <p:outputLabel>title</p:outputLabel>
-                                    <p:inputText value="#{experience.jobTitle}" required="true"/>
-                                </div>
-                                <div class="field">
-                                    <p:outputLabel>periode</p:outputLabel>
-                                    <p:inputText value="#{experience.jobPeriode}" required="true"/>
-                                </div>
-                                <div class="field">
-                                    <p:outputLabel>client</p:outputLabel>
-                                    <p:inputText value="#{experience.jobClient}" required="true"/>
-                                </div>
-                                <div class="field">
-                                    <p:outputLabel>project</p:outputLabel>
-                                    <p:inputText value="#{experience.jobProject}" required="true"/>
-                                </div>
-                                <div class="field">
-                                    <p:outputLabel>description</p:outputLabel>
-                                    <p:inputText value="#{experience.jobDescription}" required="true"/>
-                                </div>
-                                <div class="field">
-                                    <p:outputLabel>team and method</p:outputLabel>
-                                    <p:inputText value="#{experience.jobTeamAndMethod}" required="true"/>
-                                </div>
-                                <div class="field">
-                                    <p:outputLabel>skills</p:outputLabel>
-                                    <p:inputText value="#{experience.jobSkills}" required="true"/>
+                                <div id="experience-#{index.index}">
+                                    <div class="field">Experience #{index.index}</div>
+                                    <div class="field">
+                                        <p:outputLabel>title</p:outputLabel>
+                                        <p:inputText value="#{experience.jobTitle}" required="true"/>
+                                    </div>
+                                    <div class="field">
+                                        <p:outputLabel>periode</p:outputLabel>
+                                        <p:inputText value="#{experience.jobPeriode}" required="true"/>
+                                    </div>
+                                    <div class="field">
+                                        <p:outputLabel>client</p:outputLabel>
+                                        <p:inputText value="#{experience.jobClient}" required="true"/>
+                                    </div>
+                                    <div class="field">
+                                        <p:outputLabel>project</p:outputLabel>
+                                        <p:inputText value="#{experience.jobProject}" required="true"/>
+                                    </div>
+                                    <div class="field">
+                                        <p:outputLabel>description</p:outputLabel>
+                                        <p:inputText value="#{experience.jobDescription}" required="true"/>
+                                    </div>
+                                    <p:commandButton value="New Fpnction" action="#{crudView.createFonction(experience)}"
+                                                     immediate="true"
+                                                     update="@(.fonctions)">
+                                    </p:commandButton>
+                                    <p:outputPanel class="ui-fluid fonctions">
+                                        <ui:repeat varStatus="index2" var="fonction" value="#{experience.jobFonctions}">
+                                            <div class="field">Fonction #{index2.index}</div>
+                                            <div class="field">
+                                                <p:outputLabel>fonction</p:outputLabel>
+                                                <p:inputText value="#{fonction}" required="true"/>
+                                            </div>
+                                        </ui:repeat>
+                                    </p:outputPanel>
+                                    <div class="field">
+                                        <p:outputLabel>team and method</p:outputLabel>
+                                        <p:inputText value="#{experience.jobTeamAndMethod}" required="true"/>
+                                    </div>
+                                    <p:commandButton value="New task" action="#{crudView.createTask(experience)}"
+                                                     immediate="true"
+                                                     update="@(.tasks)">
+                                    </p:commandButton>
+                                    <p:outputPanel class="ui-fluid tasks">
+                                        <ui:repeat varStatus="index2" var="task" value="#{experience.jobTasks}">
+                                            <div class="field">Task #{index2.index}</div>
+                                            <div class="field">
+                                                <p:outputLabel>task</p:outputLabel>
+                                                <p:inputText value="#{task}" required="true"/>
+                                            </div>
+                                        </ui:repeat>
+                                    </p:outputPanel>
+
+                                    <div class="field">
+                                        <p:outputLabel>skills</p:outputLabel>
+                                        <p:inputText value="#{experience.jobSkills}" required="true"/>
+                                    </div>
                                 </div>
                             </ui:repeat>
                             <!-- TODO -->
@@ -255,7 +286,8 @@
                                              immediate="true"
                                              update="manage-resume-content">
                             </p:commandButton>
-                            <ui:repeat value="#{crudView.selectedResume.certifications}" var="certification" varStatus="index">
+                            <ui:repeat value="#{crudView.selectedResume.certifications}" var="certification"
+                                       varStatus="index">
                                 <div class="field">Certification #{index.index}</div>
                                 <div class="field">
                                     <p:outputLabel>title</p:outputLabel>
