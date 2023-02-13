@@ -13,6 +13,7 @@ import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import lombok.Getter;
 import lombok.Setter;
+import org.joinfaces.cv.certification.dto.CertificationDto;
 import org.joinfaces.cv.experience.dto.ExperienceDto;
 import org.joinfaces.cv.formation.dto.FormationDto;
 import org.joinfaces.cv.information.dto.InformationDto;
@@ -170,7 +171,7 @@ public class CrudView implements Serializable {
     }
 
     public void createCertification() {
-        this.selectedResume.getFormations().add(new FormationDto());
+        this.selectedResume.getCertifications().add(new CertificationDto());
     }
 
     public void createExperience() {

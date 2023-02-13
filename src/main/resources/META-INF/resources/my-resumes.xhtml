@@ -120,7 +120,7 @@
 
             <h:form id="dialogs">
                 <p:dialog header="Resume Details" showEffect="fade" modal="false" widgetVar="manageResumeDialog"
-                          responsive="true">
+                          responsive="true" resizable="true" style="table-layout: auto; overflow: scroll; max-height: 70%">
                     <p:outputPanel id="manage-resume-content" class="ui-fluid">
                         <p:outputPanel rendered="#{not empty crudView.selectedResume}">
                             <div class="field">

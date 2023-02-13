@@ -1,9 +1,7 @@
 package org.joinfaces.cv.certification.dto;
 
 import jakarta.validation.constraints.PastOrPresent;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.joinfaces.common.dto.AbstractDto;
 
 import java.time.Year;
@@ -11,6 +9,8 @@ import java.time.Year;
 @Builder
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class CertificationDto extends AbstractDto {
  private String name;
  @PastOrPresent
