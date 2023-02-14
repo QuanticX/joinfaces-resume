@@ -134,10 +134,10 @@ public class CrudView implements Serializable {
     public void saveResume() {
         if (this.selectedResume.getId() == null) {
             this.resumes.add(this.resumeService.add(this.selectedResume));
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Resume Added"));
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("CV ajouté"));
         } else {
             this.resumeService.update(this.selectedResume);
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Resume Updated"));
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("CV mis à jour"));
         }
 
         PrimeFaces.current().executeScript("PF('manageResumeDialog').hide()");
@@ -149,17 +149,17 @@ public class CrudView implements Serializable {
         this.resumeService.delete(this.selectedResume);
         this.selectedResumes.remove(this.selectedResume);
         this.selectedResume = null;
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Resume Removed"));
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("CV supprimé"));
         PrimeFaces.current().ajax().update("form:messages", "form:dt-resumes");
     }
 
     public String getDeleteButtonMessage() {
         if (hasSelectedResumes()) {
             int size = this.selectedResumes.size();
-            return size > 1 ? size + " Resumes selected" : "1 Resume selected";
+            return size > 1 ? size + " CVs sélectionnés" : "1 CV sélectionné";
         }
 
-        return "Delete";
+        return "Supprimer";
     }
 
     public boolean hasSelectedResumes() {

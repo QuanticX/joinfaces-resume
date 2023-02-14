@@ -18,18 +18,20 @@
 
                 <p:toolbar>
                     <p:toolbarGroup>
-                        <p:commandButton value="New" icon="pi pi-plus" actionListener="#{crudView.openNew}"
-                                         update=":dialogs:manage-resume-content"
-                                         oncomplete="PF('manageResumeDialog').show()"
-                                         styleClass="ui-button-success" style="margin-right: .5rem">
-                            <p:resetInput target=":dialogs:manage-resume-content"/>
-                        </p:commandButton>
                         <p:commandButton id="delete-resumes-button" value="#{crudView.deleteButtonMessage}"
                                          icon="pi pi-trash" actionListener="#{crudView.deleteSelectedResumes}"
                                          styleClass="ui-button-danger" disabled="#{not crudView.hasSelectedResumes()}"
                                          update="@this">
-                            <p:confirm header="Confirmation" message="Delete the selected resumes?"
+                            <p:confirm header="Confirmation" message="Supprimer les CVs sélectionnés?"
                                        icon="pi pi-exclamation-triangle"/>
+                        </p:commandButton>
+                    </p:toolbarGroup>
+                    <p:toolbarGroup align="right">
+                        <p:commandButton value="Nouveau CV" icon="pi pi-plus" actionListener="#{crudView.openNew}"
+                                         update=":dialogs:manage-resume-content"
+                                         oncomplete="PF('manageResumeDialog').show()"
+                                         styleClass="ui-button-success" style="margin-right: .5rem">
+                            <p:resetInput target=":dialogs:manage-resume-content"/>
                         </p:commandButton>
                     </p:toolbarGroup>
                 </p:toolbar>
@@ -40,9 +42,9 @@
                              paginatorPosition="bottom">
                     <f:facet name="header">
                         <div class="resumes-table-header">
-                            <span style="font-weight: bold">Resumes</span>
+                            <span style="font-weight: bold">CVs</span>
                             <span class="filter-container ui-input-icon-left"> <i class="pi pi-search"></i>
-                        <p:inputText id="globalFilter" onkeyup="PF('dtResumes').filter()" placeholder="Search"/>
+                        <p:inputText id="globalFilter" onkeyup="PF('dtResumes').filter()" placeholder="Recherche"/>
                     </span>
                         </div>
                     </f:facet>
@@ -61,43 +63,43 @@
                     <p:column headerText="Email" sortBy="#{resume.email}" filterBy="#{resume.email}">
                         <h:outputText value="#{resume.email}"/>
                     </p:column>
-                    <p:column headerText="Name" sortBy="#{resume.information.name}"
+                    <p:column headerText="Nom Prénom" sortBy="#{resume.information.name}"
                               filterBy="#{resume.information.name}">
                         <h:outputText value="#{resume.information.name}"/>
                     </p:column>
-                    <p:column headerText="Title" sortBy="#{resume.information.title}"
+                    <p:column headerText="Titre" sortBy="#{resume.information.title}"
                               filterBy="#{resume.information.title}">
                         <h:outputText value="#{resume.information.title}"/>
                     </p:column>
-                    <p:column headerText="Year" sortBy="#{resume.information.yearOfExperience}"
+                    <p:column headerText="Années d'expérience" sortBy="#{resume.information.yearOfExperience}"
                               filterBy="#{resume.information.yearOfExperience}">
                         <h:outputText value="#{resume.information.yearOfExperience}"/>
                     </p:column>
-                    <p:column headerText="SubTitle" sortBy="#{resume.information.subTitle}"
+                    <p:column headerText="Sous titre" sortBy="#{resume.information.subTitle}"
                               filterBy="#{resume.information.subTitle}">
                         <h:outputText value="#{resume.information.subTitle}"/>
                     </p:column>
-                    <p:column headerText="SkillsWork" sortBy="#{resume.information.skillsWork}"
+                    <p:column headerText="Savoir-être" sortBy="#{resume.information.skillsWork}"
                               filterBy="#{resume.information.skillsWork}">
                         <h:outputText value="#{resume.information.skillsWork}"/>
                     </p:column>
-                    <p:column headerText="FramworksLanguages" sortBy="#{resume.information.skillsFramworksLanguages}"
+                    <p:column headerText="Frameworks / Langages" sortBy="#{resume.information.skillsFramworksLanguages}"
                               filterBy="#{resume.information.skillsFramworksLanguages}">
                         <h:outputText value="#{resume.information.skillsFramworksLanguages}"/>
                     </p:column>
-                    <p:column headerText="Os" sortBy="#{resume.information.skillsOs}"
+                    <p:column headerText="Système d'exploitation" sortBy="#{resume.information.skillsOs}"
                               filterBy="#{resume.information.skillsOs}">
                         <h:outputText value="#{resume.information.skillsOs}"/>
                     </p:column>
-                    <p:column headerText="Methods" sortBy="#{resume.information.skillsMethods}"
+                    <p:column headerText="Méthodes" sortBy="#{resume.information.skillsMethods}"
                               filterBy="#{resume.information.skillsMethods}">
                         <h:outputText value="#{resume.information.skillsMethods}"/>
                     </p:column>
-                    <p:column headerText="Db" sortBy="#{resume.information.skillsDb}"
+                    <p:column headerText="Base de données" sortBy="#{resume.information.skillsDb}"
                               filterBy="#{resume.information.skillsDb}">
                         <h:outputText value="#{resume.information.skillsDb}"/>
                     </p:column>
-                    <p:column headerText="Tools" sortBy="#{resume.information.skillsTools}"
+                    <p:column headerText="Outils" sortBy="#{resume.information.skillsTools}"
                               filterBy="#{resume.information.skillsTools}">
                         <h:outputText value="#{resume.information.skillsTools}"/>
                     </p:column>
@@ -110,8 +112,8 @@
                             <p:resetInput target=":dialogs:manage-resume-content"/>
                         </p:commandButton>
                         <p:commandButton id="downloadButton"
-                                         value="Export" ajax="false" styleClass="ui-button-help"
-                                         onclick="PrimeFaces.monitorDownload(start, stop);" icon="ui-icon-arrowthick-1-s"  >
+                                         ajax="false" styleClass="rounded-button ui-button-warning"
+                                         onclick="PrimeFaces.monitorDownload(start, stop);" icon="pi pi-upload"  >
                             <f:setPropertyActionListener value="#{resume}" target="#{crudView.selectedResume}"/>
                             <p:fileDownload value="#{crudView.download()}"/>
                         </p:commandButton>
@@ -121,161 +123,161 @@
             </h:form>
 
             <h:form id="dialogs">
-                <p:dialog header="Resume Details" showEffect="fade" modal="false" widgetVar="manageResumeDialog"
+                <p:dialog header="CV édition" showEffect="fade" modal="false" widgetVar="manageResumeDialog"
                           responsive="true" resizable="true"
                           style="table-layout: auto; overflow: scroll; max-height: 70%">
                     <p:outputPanel id="manage-resume-content" class="ui-fluid">
                         <p:outputPanel rendered="#{not empty crudView.selectedResume}">
                             <div class="field">
-                                <p:outputLabel for="email">email</p:outputLabel>
+                                <p:outputLabel for="email">Email</p:outputLabel>
                                 <p:inputText id="email" value="#{crudView.selectedResume.email}" required="true"/>
                             </div>
                             <div class="field">
-                                <p:outputLabel for="name">name</p:outputLabel>
+                                <p:outputLabel for="name">Nom prénom</p:outputLabel>
                                 <p:inputText id="name" value="#{crudView.selectedResume.information.name}"
                                              required="true"/>
                             </div>
                             <div class="field">
-                                <p:outputLabel for="title">title</p:outputLabel>
+                                <p:outputLabel for="title">Titre</p:outputLabel>
                                 <p:inputText id="title" value="#{crudView.selectedResume.information.title}"
                                              required="true"/>
                             </div>
                             <div class="field">
-                                <p:outputLabel for="yearOfExperience">year of experience</p:outputLabel>
+                                <p:outputLabel for="yearOfExperience">Années d'expérience</p:outputLabel>
                                 <p:inputText id="yearOfExperience"
                                              value="#{crudView.selectedResume.information.yearOfExperience}"
                                              required="true"/>
                             </div>
                             <div class="field">
-                                <p:outputLabel for="subTitle">sub title</p:outputLabel>
+                                <p:outputLabel for="subTitle">Sous titre</p:outputLabel>
                                 <p:inputText id="subTitle" value="#{crudView.selectedResume.information.subTitle}"
                                              required="true"/>
                             </div>
                             <div class="field">
-                                <p:outputLabel for="skillsWork">skills work</p:outputLabel>
+                                <p:outputLabel for="skillsWork">Savoir-être</p:outputLabel>
                                 <p:inputText id="skillsWork" value="#{crudView.selectedResume.information.skillsWork}"
                                              required="true"/>
                             </div>
                             <div class="field">
-                                <p:outputLabel for="skillsFramworksLanguages">Frameworks/Languages</p:outputLabel>
+                                <p:outputLabel for="skillsFramworksLanguages">Frameworks / Langages</p:outputLabel>
                                 <p:inputText id="skillsFramworksLanguages"
                                              value="#{crudView.selectedResume.information.skillsFramworksLanguages}"
                                              required="true"/>
                             </div>
                             <div class="field">
-                                <p:outputLabel for="skillsOs">operating system</p:outputLabel>
+                                <p:outputLabel for="skillsOs">Systèmes d'exploitation</p:outputLabel>
                                 <p:inputText id="skillsOs" value="#{crudView.selectedResume.information.skillsOs}"
                                              required="true"/>
                             </div>
                             <div class="field">
-                                <p:outputLabel for="skillsMethods">method</p:outputLabel>
+                                <p:outputLabel for="skillsMethods">Méthodes</p:outputLabel>
                                 <p:inputText id="skillsMethods"
                                              value="#{crudView.selectedResume.information.skillsMethods}"
                                              required="true"/>
                             </div>
                             <div class="field">
-                                <p:outputLabel for="skillsDb">database</p:outputLabel>
+                                <p:outputLabel for="skillsDb">Base de données</p:outputLabel>
                                 <p:inputText id="skillsDb" value="#{crudView.selectedResume.information.skillsDb}"
                                              required="true"/>
                             </div>
                             <div class="field">
-                                <p:outputLabel for="skillsTools">tools</p:outputLabel>
+                                <p:outputLabel for="skillsTools">Outils</p:outputLabel>
                                 <p:inputText id="skillsTools" value="#{crudView.selectedResume.information.skillsTools}"
                                              required="true"/>
                             </div>
 
-                            <p:commandButton value="New language" action="#{crudView.createLanguage()}" immediate="true"
+                            <p:commandButton value="Nouvelle langue" action="#{crudView.createLanguage()}" immediate="true"
                                              update="manage-resume-content">
                             </p:commandButton>
                             <ui:repeat value="#{crudView.selectedResume.languages}" var="language" varStatus="index">
-                                <div class="field">Language #{index.index}</div>
+                                <div class="field">Langue n°#{index.index}</div>
                                 <div class="field">
-                                    <p:outputLabel>language</p:outputLabel>
+                                    <p:outputLabel>Nom de la la langue</p:outputLabel>
                                     <p:inputText value="#{language.name}" required="true"/>
                                 </div>
                                 <div class="field">
-                                    <p:outputLabel>level</p:outputLabel>
+                                    <p:outputLabel>Niveau de la langue</p:outputLabel>
                                     <p:inputText value="#{language.level}" required="true"/>
                                 </div>
                             </ui:repeat>
 
-                            <p:commandButton value="New formation" action="#{crudView.createFormation()}"
+                            <p:commandButton value="Nouvelle formation" action="#{crudView.createFormation()}"
                                              immediate="true"
                                              update="manage-resume-content">
                             </p:commandButton>
                             <ui:repeat value="#{crudView.selectedResume.formations}" var="formation" varStatus="index">
-                                <div class="field">Formation #{index.index}</div>
+                                <div class="field">Formation n°#{index.index}</div>
                                 <div class="field">
-                                    <p:outputLabel>title</p:outputLabel>
+                                    <p:outputLabel>Titre de la formation</p:outputLabel>
                                     <p:inputText value="#{formation.name}" required="true"/>
                                 </div>
                                 <div class="field">
-                                    <p:outputLabel>year</p:outputLabel>
+                                    <p:outputLabel>Année de la réussite de la formation</p:outputLabel>
                                     <p:inputText value="#{formation.date}" required="true"/>
                                 </div>
                             </ui:repeat>
 
-                            <p:commandButton value="New experience" action="#{crudView.createExperience()}"
+                            <p:commandButton value="Nouvelle expérience" action="#{crudView.createExperience()}"
                                              immediate="true"
                                              update="manage-resume-content">
                             </p:commandButton>
                             <ui:repeat value="#{crudView.selectedResume.experiences}" var="experience"
                                        varStatus="index">
                                 <div id="experience-#{index.index}">
-                                    <div class="field">Experience #{index.index}</div>
+                                    <div class="field">Expérience n°#{index.index}</div>
                                     <div class="field">
-                                        <p:outputLabel>title</p:outputLabel>
+                                        <p:outputLabel>Le titre</p:outputLabel>
                                         <p:inputText value="#{experience.jobTitle}" required="true"/>
                                     </div>
                                     <div class="field">
-                                        <p:outputLabel>periode</p:outputLabel>
+                                        <p:outputLabel>La Période</p:outputLabel>
                                         <p:inputText value="#{experience.jobPeriode}" required="true"/>
                                     </div>
                                     <div class="field">
-                                        <p:outputLabel>client</p:outputLabel>
+                                        <p:outputLabel>Nom du client</p:outputLabel>
                                         <p:inputText value="#{experience.jobClient}" required="true"/>
                                     </div>
                                     <div class="field">
-                                        <p:outputLabel>project</p:outputLabel>
+                                        <p:outputLabel>Nom du projet</p:outputLabel>
                                         <p:inputText value="#{experience.jobProject}" required="true"/>
                                     </div>
                                     <div class="field">
-                                        <p:outputLabel>description</p:outputLabel>
+                                        <p:outputLabel>Description</p:outputLabel>
                                         <p:inputText value="#{experience.jobDescription}" required="true"/>
                                     </div>
-                                    <p:commandButton value="New Fpnction" action="#{crudView.createFonction(experience)}"
+                                    <p:commandButton value="Nouvelle fonction" action="#{crudView.createFonction(experience)}"
                                                      immediate="true"
                                                      update="@(.fonctions)">
                                     </p:commandButton>
                                     <p:outputPanel class="ui-fluid fonctions">
                                         <ui:repeat varStatus="index2" var="fonction" value="#{experience.jobFonctions}">
-                                            <div class="field">Fonction #{index2.index}</div>
+                                            <div class="field">Fonction occupé n°#{index2.index}</div>
                                             <div class="field">
-                                                <p:outputLabel>fonction</p:outputLabel>
+                                                <p:outputLabel>intitulée de la fonction</p:outputLabel>
                                                 <p:inputText value="#{fonction}" required="true"/>
                                             </div>
                                         </ui:repeat>
                                     </p:outputPanel>
                                     <div class="field">
-                                        <p:outputLabel>team and method</p:outputLabel>
+                                        <p:outputLabel>Méthode utilisé et le nombre de personne dans l'équipe</p:outputLabel>
                                         <p:inputText value="#{experience.jobTeamAndMethod}" required="true"/>
                                     </div>
-                                    <p:commandButton value="New task" action="#{crudView.createTask(experience)}"
+                                    <p:commandButton value="Nouvelle tache" action="#{crudView.createTask(experience)}"
                                                      immediate="true"
                                                      update="@(.tasks)">
                                     </p:commandButton>
                                     <p:outputPanel class="ui-fluid tasks">
                                         <ui:repeat varStatus="index2" var="task" value="#{experience.jobTasks}">
-                                            <div class="field">Task #{index2.index}</div>
+                                            <div class="field">Tache effectué n°#{index2.index}</div>
                                             <div class="field">
-                                                <p:outputLabel>task</p:outputLabel>
+                                                <p:outputLabel>La description de la tache</p:outputLabel>
                                                 <p:inputText value="#{task}" required="true"/>
                                             </div>
                                         </ui:repeat>
                                     </p:outputPanel>
 
                                     <div class="field">
-                                        <p:outputLabel>skills</p:outputLabel>
+                                        <p:outputLabel>Les compétences occasionnées</p:outputLabel>
                                         <p:inputText value="#{experience.jobSkills}" required="true"/>
                                     </div>
                                 </div>
@@ -283,19 +285,19 @@
                             <!-- TODO -->
 
 
-                            <p:commandButton value="New certification" action="#{crudView.createCertification()}"
+                            <p:commandButton value="Nouvelle certification" action="#{crudView.createCertification()}"
                                              immediate="true"
                                              update="manage-resume-content">
                             </p:commandButton>
                             <ui:repeat value="#{crudView.selectedResume.certifications}" var="certification"
                                        varStatus="index">
-                                <div class="field">Certification #{index.index}</div>
+                                <div class="field">Certification n°#{index.index}</div>
                                 <div class="field">
-                                    <p:outputLabel>title</p:outputLabel>
+                                    <p:outputLabel>Son titre</p:outputLabel>
                                     <p:inputText value="#{certification.name}" required="true"/>
                                 </div>
                                 <div class="field">
-                                    <p:outputLabel>year</p:outputLabel>
+                                    <p:outputLabel>Son année d'accomplisement</p:outputLabel>
                                     <p:inputText value="#{certification.date}" required="true"/>
                                 </div>
                             </ui:repeat>
@@ -303,16 +305,16 @@
                     </p:outputPanel>
 
                     <f:facet name="footer">
-                        <p:commandButton value="Save" icon="pi pi-check" actionListener="#{crudView.saveResume}"
+                        <p:commandButton value="Sauvegarder" icon="pi pi-check" actionListener="#{crudView.saveResume}"
                                          update="manage-resume-content" process="manage-resume-content @this"/>
-                        <p:commandButton value="Cancel" icon="pi pi-times" onclick="PF('manageResumeDialog').hide()"
+                        <p:commandButton value="Annuler" icon="pi pi-times" onclick="PF('manageResumeDialog').hide()"
                                          class="ui-button-secondary" type="button"/>
                     </f:facet>
                 </p:dialog>
 
                 <p:confirmDialog global="true" showEffect="fade" width="300">
-                    <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="pi pi-check"/>
-                    <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no ui-button-secondary"
+                    <p:commandButton value="Oui" type="button" styleClass="ui-confirmdialog-yes" icon="pi pi-check"/>
+                    <p:commandButton value="Non" type="button" styleClass="ui-confirmdialog-no ui-button-secondary"
                                      icon="pi pi-times"/>
                 </p:confirmDialog>
             </h:form>

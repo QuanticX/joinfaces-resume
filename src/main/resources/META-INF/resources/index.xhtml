@@ -20,9 +20,9 @@
                              rowKey="#{resume.id}" paginator="true" rows="10" rowSelectMode="add" paginatorPosition="bottom">
                     <f:facet name="header">
                         <div class="products-table-header">
-                            <span style="font-weight: bold">Resume</span>
+                            <span style="font-weight: bold">CV</span>
                             <span class="filter-container ui-input-icon-left"> <i class="pi pi-search"></i>
-                        <p:inputText id="globalFilter" onkeyup="PF('dtResumes').filter()" placeholder="Search" />
+                        <p:inputText id="globalFilter" onkeyup="PF('dtResumes').filter()" placeholder="Recherche" />
                     </span>
                         </div>
                     </f:facet>
@@ -38,31 +38,31 @@
                     <p:column headerText="Name" sortBy="#{resume.information.name}" filterBy="#{resume.information.name}">
                         <h:outputText value="#{resume.information.name}" />
                     </p:column>
-                    <p:column headerText="Title" sortBy="#{resume.information.title}" filterBy="#{resume.information.title}">
+                    <p:column headerText="Titre" sortBy="#{resume.information.title}" filterBy="#{resume.information.title}">
                         <h:outputText value="#{resume.information.title}" />
                     </p:column>
-                    <p:column headerText="Year" sortBy="#{resume.information.yearOfExperience}" filterBy="#{resume.information.yearOfExperience}">
+                    <p:column headerText="Années d'expéreince" sortBy="#{resume.information.yearOfExperience}" filterBy="#{resume.information.yearOfExperience}">
                         <h:outputText value="#{resume.information.yearOfExperience}" />
                     </p:column>
-                    <p:column headerText="SubTitle" sortBy="#{resume.information.subTitle}" filterBy="#{resume.information.subTitle}">
+                    <p:column headerText="Sous titre" sortBy="#{resume.information.subTitle}" filterBy="#{resume.information.subTitle}">
                         <h:outputText value="#{resume.information.subTitle}" />
                     </p:column>
-                    <p:column headerText="SkillsWork" sortBy="#{resume.information.skillsWork}" filterBy="#{resume.information.skillsWork}">
+                    <p:column headerText="Savoir-être" sortBy="#{resume.information.skillsWork}" filterBy="#{resume.information.skillsWork}">
                         <h:outputText value="#{resume.information.skillsWork}" />
                     </p:column>
-                    <p:column headerText="FramworksLanguages" sortBy="#{resume.information.skillsFramworksLanguages}" filterBy="#{resume.information.skillsFramworksLanguages}">
+                    <p:column headerText="Frameworks / Langages" sortBy="#{resume.information.skillsFramworksLanguages}" filterBy="#{resume.information.skillsFramworksLanguages}">
                         <h:outputText value="#{resume.information.skillsFramworksLanguages}" />
                     </p:column>
-                    <p:column headerText="Os" sortBy="#{resume.information.skillsOs}" filterBy="#{resume.information.skillsOs}">
+                    <p:column headerText="Système d'exploitation" sortBy="#{resume.information.skillsOs}" filterBy="#{resume.information.skillsOs}">
                         <h:outputText value="#{resume.information.skillsOs}" />
                     </p:column>
-                    <p:column headerText="Methods" sortBy="#{resume.information.skillsMethods}" filterBy="#{resume.information.skillsMethods}">
+                    <p:column headerText="Méthode" sortBy="#{resume.information.skillsMethods}" filterBy="#{resume.information.skillsMethods}">
                         <h:outputText value="#{resume.information.skillsMethods}" />
                     </p:column>
-                    <p:column headerText="Db" sortBy="#{resume.information.skillsDb}" filterBy="#{resume.information.skillsDb}">
+                    <p:column headerText="Base de données" sortBy="#{resume.information.skillsDb}" filterBy="#{resume.information.skillsDb}">
                         <h:outputText value="#{resume.information.skillsDb}" />
                     </p:column>
-                    <p:column headerText="Tools" sortBy="#{resume.information.skillsTools}" filterBy="#{resume.information.skillsTools}">
+                    <p:column headerText="Outils" sortBy="#{resume.information.skillsTools}" filterBy="#{resume.information.skillsTools}">
                         <h:outputText value="#{resume.information.skillsTools}" />
                     </p:column>
 

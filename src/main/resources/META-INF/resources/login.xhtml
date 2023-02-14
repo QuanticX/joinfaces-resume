@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html lang="en-us"
+<html lang="fr-FR"
       xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
@@ -9,7 +9,7 @@
 
     <f:view contentType="text/html">
         <h:head>
-            <title>.:: Login JoinFaces Example ::.</title>
+            <title>.:: Login JoinFaces ::.</title>
             <meta content='text/html; charset=UTF-8' http-equiv="Content-Type" />
             <link href="#{resource['images/favicon.ico']}" rel="shortcut icon"/>
             <h:outputStylesheet library="css" name="example.css" />
@@ -26,12 +26,12 @@
                             </p:panelGrid>
                             <p:focus />
                             <p:panelGrid columns="2" layout="grid">
-                                <h:outputText value="username" />
+                                <h:outputText value="Login" />
                                 <p:inputText id="username" />
-                                <h:outputText value="password" />
+                                <h:outputText value="Mot de passe" />
                                 <p:password id="password" />
                             </p:panelGrid>
-                            <p:commandButton id="submit" value="Login" ajax="false" />
+                            <p:commandButton id="submit" value="Se connecter" ajax="false" />
                         </div>
                     </h:form>
                 </pe:layoutPane>
