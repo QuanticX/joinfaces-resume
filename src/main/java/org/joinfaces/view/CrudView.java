@@ -13,12 +13,12 @@ import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import lombok.Getter;
 import lombok.Setter;
-import org.joinfaces.cv.certification.dto.CertificationDto;
-import org.joinfaces.cv.experience.dto.ExperienceDto;
-import org.joinfaces.cv.formation.dto.FormationDto;
-import org.joinfaces.cv.information.dto.InformationDto;
-import org.joinfaces.cv.language.dto.LanguageDto;
-import org.joinfaces.cv.resume.dto.ResumeDto;
+import org.joinfaces.cv.certification.entity.CertificationEntity;
+import org.joinfaces.cv.experience.entity.ExperienceEntity;
+import org.joinfaces.cv.formation.entity.FormationEntity;
+import org.joinfaces.cv.information.entity.InformationEntity;
+import org.joinfaces.cv.language.entity.LanguageEntity;
+import org.joinfaces.cv.resume.entity.ResumeEntity;
 import org.joinfaces.cv.resume.service.ResumeService;
 import org.primefaces.PrimeFaces;
 import org.springframework.stereotype.Component;
@@ -34,35 +34,35 @@ import java.util.Map;
 @SessionScoped
 public class CrudView implements Serializable {
 
-    private List<ResumeDto> resumes;
+    private List<ResumeEntity> resumes;
 
-    private transient ResumeDto selectedResume;
+    private ResumeEntity selectedResume;
 
-    private transient List<ResumeDto> selectedResumes;
+    private List<ResumeEntity> selectedResumes;
 
-    public List<ResumeDto> getResumes() {
+    public List<ResumeEntity> getResumes() {
         return resumes;
     }
 
-    public void setResumes(List<ResumeDto> resumes) {
+    public void setResumes(List<ResumeEntity> resumes) {
         this.resumes = resumes;
     }
 
-    public ResumeDto getSelectedResume() {
+    public ResumeEntity getSelectedResume() {
         return selectedResume;
     }
 
-    public void setSelectedResume(ResumeDto selectedResume) {
+    public void setSelectedResume(ResumeEntity selectedResume) {
         this.selectedResume = selectedResume;
     }
 
 
-    public List<ResumeDto> getSelectedResumes() {
+    public List<ResumeEntity> getSelectedResumes() {
         return selectedResumes;
     }
 
 
-    public void setSelectedResumes(List<ResumeDto> selectedResumes) {
+    public void setSelectedResumes(List<ResumeEntity> selectedResumes) {
         this.selectedResumes = selectedResumes;
     }
 
@@ -71,46 +71,47 @@ public class CrudView implements Serializable {
 
     @PostConstruct
     public void init() {
-        //this.resumes = this.resumeService.readAll();
-        this.resumes = new ArrayList<>();
-        this.resumes.add(ResumeDto.builder().email("abdelnabi.mohamed.13015@gmail.com")
-                .information(InformationDto.builder()
-                        .name("M. Ab.")
-                        .yearOfExperience(Integer.valueOf("4"))
-                        .title("DEVELOPPEUR : JAVA EE SPRING ANGULAR")
-                        .subTitle("ANALYSTE, DATA SCIENTIST, CONCEPTION ET DEVELOPPEMENT")
-                        .skillsWork("COMMUNICATION, TRAVAIL EN EQUIPE, ADAPTABILITE, RIGUEUR, ANALYSE, CREATIVITE")
-                        .skillsFramworksLanguages("Java SE 8/11, Groovy, Scala, HTML5, JavaScript, JSON, XML/XPATH, "
-                                + "TypeScript, SQL, PL/SQL, Python, C, CSS, Matlab, R, Angular, Hibernate, Java"
-                                + "EE 7/8, JPA, REST, SOAP, JSP, JSF, Spring, Twitter Bootstrap, Spring Boot, "
-                                + "Node.Js, Material, Animation, Criteria API, JPQL, JMS, RxJS, JDBC, Ansible, "
-                                + "JSF, Web Socket, NgRx, Redux, Spring Boot / Web & Reactive Web & Web"
-                                + "Services / Data / Kafka / Cloud & Cloud Stream / Batch / Retry / DevTools"
-                                + "/ WebSocket / Validation / LDAP / Oauth2 / Security , Hadoop, Spark,"
-                                + "NestJS, JUnit, Jasmine, Protractor, Selenium, Karma, JMeter, Mockito, "
-                                + "Liquidbase, Flyway, Tomcat, Jetty, Undertow, WildFly, Netty")
-                        .skillsOs("Windows, Linux (Ubuntu/Cent OS), Mac OS")
-                        .skillsMethods("Cascade, Agile : SCRUM/KANABAN, Spirale, TDD, Merise, QQOQCCP, UML")
-                        .skillsDb("Oracle, SQL Server, PostgreSQL, MongoDB, Cassandra, Hive, HBase, ElasticSearch, H2")
-                        .skillsTools("JIRA, Confluence, Maven, Gradle, NPM, Sonar Qube, Memory Analyzer Tool, "
-                                + "PuTTY, Docker, Elastic Stack, Prometheus, Kubernetes, Amazon Web "
-                                + "Services, Heroku, Azure, Cloud Foundry, Google Cloud Platform, VMWare, "
-                                + "Hyper-V, VirtualBox, Nexus, Jenkins, Sketch UP, Adobe XD, Adobe "
-                                + "Photoshop, Adobe Illustrator, Qlik Sense, Grafana, Power BI, Excel, Eclipse, "
-                                + "IntelliJ IDEA, Visual Studio Code, Gitlab, Bamboo, Github")
-                        .build()
+        this.resumes = this.resumeService.readAll();
+        if (this.resumes.isEmpty()) {
+            this.resumes.add(this.resumeService.add(ResumeEntity.builder().email("abdelnabi.mohamed.13015@gmail.com")
+                    .information(InformationEntity.builder()
+                            .name("M. Ab.")
+                            .yearOfExperience(Integer.valueOf("4"))
+                            .title("DEVELOPPEUR : JAVA EE SPRING ANGULAR")
+                            .subTitle("ANALYSTE, DATA SCIENTIST, CONCEPTION ET DEVELOPPEMENT")
+                            .skillsWork("COMMUNICATION, TRAVAIL EN EQUIPE, ADAPTABILITE, RIGUEUR, ANALYSE, CREATIVITE")
+                            .skillsFramworksLanguages("Java SE 8/11, Groovy, Scala, HTML5, JavaScript, JSON, XML/XPATH, "
+                                    + "TypeScript, SQL, PL/SQL, Python, C, CSS, Matlab, R, Angular, Hibernate, Java"
+                                    + "EE 7/8, JPA, REST, SOAP, JSP, JSF, Spring, Twitter Bootstrap, Spring Boot, "
+                                    + "Node.Js, Material, Animation, Criteria API, JPQL, JMS, RxJS, JDBC, Ansible, "
+                                    + "JSF, Web Socket, NgRx, Redux, Spring Boot / Web & Reactive Web & Web"
+                                    + "Services / Data / Kafka / Cloud & Cloud Stream / Batch / Retry / DevTools"
+                                    + "/ WebSocket / Validation / LDAP / Oauth2 / Security , Hadoop, Spark,"
+                                    + "NestJS, JUnit, Jasmine, Protractor, Selenium, Karma, JMeter, Mockito, "
+                                    + "Liquidbase, Flyway, Tomcat, Jetty, Undertow, WildFly, Netty")
+                            .skillsOs("Windows, Linux (Ubuntu/Cent OS), Mac OS")
+                            .skillsMethods("Cascade, Agile : SCRUM/KANABAN, Spirale, TDD, Merise, QQOQCCP, UML")
+                            .skillsDb("Oracle, SQL Server, PostgreSQL, MongoDB, Cassandra, Hive, HBase, ElasticSearch, H2")
+                            .skillsTools("JIRA, Confluence, Maven, Gradle, NPM, Sonar Qube, Memory Analyzer Tool, "
+                                    + "PuTTY, Docker, Elastic Stack, Prometheus, Kubernetes, Amazon Web "
+                                    + "Services, Heroku, Azure, Cloud Foundry, Google Cloud Platform, VMWare, "
+                                    + "Hyper-V, VirtualBox, Nexus, Jenkins, Sketch UP, Adobe XD, Adobe "
+                                    + "Photoshop, Adobe Illustrator, Qlik Sense, Grafana, Power BI, Excel, Eclipse, "
+                                    + "IntelliJ IDEA, Visual Studio Code, Gitlab, Bamboo, Github")
+                            .build()
 
-                ).languages(new ArrayList<>())
-                .formations(new ArrayList<>())
-                .experiences(new ArrayList<>())
-                .languages(new ArrayList<>()).build()
-        );
-
+                    ).languages(new ArrayList<>())
+                    .formations(new ArrayList<>())
+                    .experiences(new ArrayList<>())
+                    .certifications(new ArrayList<>())
+                    .languages(new ArrayList<>()).build())
+            );
+        }
     }
 
     public void openNew() {
-        this.selectedResume = new ResumeDto();
-        this.selectedResume.setInformation(new InformationDto());
+        this.selectedResume = new ResumeEntity();
+        this.selectedResume.setInformation(new InformationEntity());
         this.selectedResume.setFormations(new ArrayList<>());
         this.selectedResume.setCertifications(new ArrayList<>());
         this.selectedResume.setExperiences(new ArrayList<>());
@@ -120,10 +121,10 @@ public class CrudView implements Serializable {
 
     public void saveResume() {
         if (this.selectedResume.getId() == null) {
-            this.resumes.add(/*this.resumeService.add*/(this.selectedResume));
+            this.resumes.add(this.resumeService.add(this.selectedResume));
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Resume Added"));
         } else {
-            //this.resumeService.update(this.selectedResume);
+            this.resumeService.update(this.selectedResume);
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Resume Updated"));
         }
 
@@ -133,7 +134,7 @@ public class CrudView implements Serializable {
 
     public void deleteResume() {
         this.resumes.remove(this.selectedResume);
-        // this.resumeService.delete(this.selectedResume);
+        this.resumeService.delete(this.selectedResume);
         this.selectedResumes.remove(this.selectedResume);
         this.selectedResume = null;
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Resume Removed"));
@@ -154,7 +155,7 @@ public class CrudView implements Serializable {
     }
 
     public void deleteSelectedResumes() {
-        //this.selectedResumes.stream().forEach(selectedResume -> this.resumeService.delete(selectedResume));
+        this.selectedResumes.stream().forEach(selectedResume -> this.resumeService.delete(selectedResume));
         this.resumes.removeAll(this.selectedResumes);
         this.selectedResumes = null;
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Resumes Removed"));
@@ -163,26 +164,26 @@ public class CrudView implements Serializable {
     }
 
     public void createLanguage() {
-        this.selectedResume.getLanguages().add(new LanguageDto("", ""));
+        this.selectedResume.getLanguages().add(new LanguageEntity("", ""));
     }
 
     public void createFormation() {
-        this.selectedResume.getFormations().add(new FormationDto());
+        this.selectedResume.getFormations().add(new FormationEntity());
     }
 
     public void createCertification() {
-        this.selectedResume.getCertifications().add(new CertificationDto());
+        this.selectedResume.getCertifications().add(new CertificationEntity());
     }
 
     public void createExperience() {
-        this.selectedResume.getExperiences().add(new ExperienceDto("", "", "", "", "", new ArrayList<>(), "", new ArrayList<>(), ""));
+        this.selectedResume.getExperiences().add(new ExperienceEntity("", "", "", "", "", new ArrayList<>(), "", new ArrayList<>(), ""));
     }
 
-    public void createFonction(ExperienceDto experienceDto){
-        experienceDto.getJobFonctions().add("");
+    public void createFonction(ExperienceEntity experienceEntity) {
+        experienceEntity.getJobFonctions().add("");
     }
 
-    public void createTask(ExperienceDto experienceDto){
-        experienceDto.getJobTasks().add("");
+    public void createTask(ExperienceEntity experienceEntity) {
+        experienceEntity.getJobTasks().add("");
     }
 }
