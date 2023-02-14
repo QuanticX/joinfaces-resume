@@ -20,10 +20,13 @@ import org.joinfaces.cv.information.entity.InformationEntity;
 import org.joinfaces.cv.language.entity.LanguageEntity;
 import org.joinfaces.cv.resume.entity.ResumeEntity;
 import org.joinfaces.cv.resume.service.ResumeService;
+import org.joinfaces.docx.FillTemplateResumeDocx;
 import org.primefaces.PrimeFaces;
+import org.primefaces.model.StreamedContent;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.annotation.SessionScope;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.time.Year;
 import java.util.ArrayList;
@@ -33,6 +36,8 @@ import java.util.Map;
 @Component
 @SessionScoped
 public class CrudView implements Serializable {
+
+
 
     private List<ResumeEntity> resumes;
 
@@ -68,6 +73,9 @@ public class CrudView implements Serializable {
 
     @Inject
     private ResumeService resumeService;
+
+    @Inject
+    private FillTemplateResumeDocx fillTemplateResumeDocx;
 
     @PostConstruct
     public void init() {
@@ -116,6 +124,10 @@ public class CrudView implements Serializable {
         this.selectedResume.setCertifications(new ArrayList<>());
         this.selectedResume.setExperiences(new ArrayList<>());
         this.selectedResume.setLanguages(new ArrayList<>());
+    }
+
+    public StreamedContent download() throws IOException {
+        return fillTemplateResumeDocx.fillTemplateAndReturnStream(fillTemplateResumeDocx.mapResume(this.selectedResume));
     }
 
 

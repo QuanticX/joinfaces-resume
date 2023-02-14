@@ -1,5 +1,7 @@
 package org.joinfaces.docx;
 
+import java.io.ByteArrayInputStream;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -18,11 +20,13 @@ import org.joinfaces.docx.pojo.*;
 import com.deepoove.poi.XWPFTemplate;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
+import org.springframework.stereotype.Component;
 
+@Component
 public class FillTemplateResumeDocx {
 
 	private static final String in = "Dossier_de_Competences_template.docx";
-	private static final String out = "/Temp/"+"out_template.docx";
+	private static final String out = "/temp/"+"out_template.docx";
 
 	public StreamedContent fillTemplateAndReturnStream(ResumeDataV2 data) throws IOException {
 
@@ -35,11 +39,19 @@ public class FillTemplateResumeDocx {
 		outputStream.close();
 		template.close();
 
-		return DefaultStreamedContent.builder()
+		StreamedContent streamedContent =
+		 DefaultStreamedContent.builder()
 				.name(data.getName()+"-" + data.getTitle()+".docx")
 				.contentType("application/vnd.openxmlformats-officedocument.wordprocessingml.document")
-				.stream(() -> FacesContext.getCurrentInstance().getExternalContext().getResourceAsStream(out))
+				.stream(() -> {
+					try {
+						return new ByteArrayInputStream(new FileInputStream(out).readAllBytes());
+					} catch (IOException e) {
+						throw new RuntimeException(e);
+					}
+				})
 				.build();
+		return streamedContent;
 	}
 
 	public ResumeDataV2 mapResume(ResumeEntity resume){

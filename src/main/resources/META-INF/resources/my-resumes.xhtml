@@ -32,11 +32,6 @@
                                        icon="pi pi-exclamation-triangle"/>
                         </p:commandButton>
                     </p:toolbarGroup>
-                    <p:toolbarGroup align="right">
-                        <p:commandButton value="Export" icon="pi pi-upload" styleClass="ui-button-help" ajax="false">
-                            <p:dataExporter type="pdf" target="dt-resumes" fileName="resumes"/>
-                        </p:commandButton>
-                    </p:toolbarGroup>
                 </p:toolbar>
 
                 <p:dataTable id="dt-resumes" widgetVar="dtResumes" var="resume" value="#{crudView.resumes}"
@@ -113,6 +108,12 @@
                                          styleClass="edit-button rounded-button ui-button-success" process="@this">
                             <f:setPropertyActionListener value="#{resume}" target="#{crudView.selectedResume}"/>
                             <p:resetInput target=":dialogs:manage-resume-content"/>
+                        </p:commandButton>
+                        <p:commandButton id="downloadButton"
+                                         value="Export" ajax="false" styleClass="ui-button-help"
+                                         onclick="PrimeFaces.monitorDownload(start, stop);" icon="ui-icon-arrowthick-1-s"  >
+                            <f:setPropertyActionListener value="#{resume}" target="#{crudView.selectedResume}"/>
+                            <p:fileDownload value="#{crudView.download()}"/>
                         </p:commandButton>
                     </p:column>
 
