@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="fr-FR"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:pe="http://primefaces.org/ui/extensions">
+
+<f:view contentType="text/html">
+    <h:head>
+        <title>.:: S'inscrire JoinFaces ::.</title>
+        <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+        <link href="#{resource['images/favicon.ico']}" rel="shortcut icon"/>
+        <!--h:outputStylesheet library="css" name="example.css" /-->
+    </h:head>
+
+    <h:body>
+        <pe:layout fullPage="true">
+            <pe:layoutPane id="mainLayoutPane" position="center">
+                <h:form prependId="false">
+                    <div id="mainDiv" class="ui-fluid center">
+                        <p:panelGrid columns="1" layout="grid">
+                            <p:outputLabel
+                                    value="Erreur: l'utilisateur existe déjà et/ou le mot de passe est incorrect."
+                                    rendered="${!empty param['error']}"/>
+                        </p:panelGrid>
+                        <p:focus/>
+                        <p:panelGrid columns="2" layout="grid">
+                            <h:outputText value="Nom d'utilisateur"/>
+                            <p:inputText id="username" value="#{userView.userCredentialsDto.username}"/>
+                            <h:outputText value="Mot de passe"/>
+                            <p:password id="password" value="#{userView.userCredentialsDto.password}"/>
+                        </p:panelGrid>
+                        <p:commandButton id="submit" value="S'inscrire" ajax="false"
+                                         actionListener="#{userView.addUser()}" oncomplete="{window.location.href='/login.jsf';}"/>
+                    </div>
+                </h:form>
+            </pe:layoutPane>
+        </pe:layout>
+    </h:body>
+</f:view>
+</html>

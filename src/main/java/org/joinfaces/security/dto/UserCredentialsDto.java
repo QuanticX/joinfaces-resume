@@ -19,9 +19,7 @@ package org.joinfaces.security.dto;
 import java.util.List;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.joinfaces.common.dto.AbstractDto;
 
 /**
@@ -31,6 +29,8 @@ import org.joinfaces.common.dto.AbstractDto;
 @Getter
 @Setter
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class UserCredentialsDto extends AbstractDto {
 	private String username;
 	private String password;
