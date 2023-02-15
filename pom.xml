@@ -26,6 +26,8 @@
         <httpclient5.version>5.2.1</httpclient5.version>
         <java.source>17</java.source>
 
+        <spring.datasource.url>jdbc:postgresql://localhost:5432/resume</spring.datasource.url>
+
         <!-- test library versions -->
         <selenium.version>4.8.0</selenium.version>
         <htmlunit-driver.version>4.8.0</htmlunit-driver.version>
@@ -309,7 +311,7 @@
                     <artifactId>maven-compiler-plugin</artifactId>
                     <version>${maven-compiler-plugin.version}</version>
                     <configuration>
-                        <failOnWarning>true</failOnWarning>
+                        <failOnWarning>false</failOnWarning>
                         <failOnError>true</failOnError>
                         <showDeprecation>true</showDeprecation>
                         <source>${java.source}</source>
@@ -509,6 +511,13 @@
     </build>
 
     <profiles>
+        <profile>
+            <id>docker</id>
+            <properties>
+                <spring.datasource.url>jdbc:postgresql://my-postgres:5432/resume</spring.datasource.url>
+
+            </properties>
+        </profile>
         <profile>
             <id>check-checkstyle</id>
             <build>

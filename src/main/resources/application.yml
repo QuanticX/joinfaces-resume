@@ -20,7 +20,7 @@ application-users:
       authorities: USER
 spring:
   datasource:
-    url: jdbc:postgresql://my-postgres:5432/resume
+    url: @spring.datasource.url@
     username: postgres
     password: password
     driver-class-name: org.postgresql.Driver

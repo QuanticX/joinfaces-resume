@@ -20,11 +20,12 @@ services:
     working_dir: /app
     volumes:
       - ./:/app
+      - /temp:/temp
       - ~/.m2:/root/.m2
     ports:
       - "80:8080"
     expose:
       - "80"
-    command: mvn clean spring-boot:run
+    command: mvn -Pdocker clean spring-boot:run
     depends_on:
       - my-postgres
