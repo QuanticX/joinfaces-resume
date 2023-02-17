@@ -160,29 +160,29 @@
                             </div>
                             <div class="field">
                                 <p:outputLabel for="skillsFramworksLanguages">Frameworks / Langages</p:outputLabel>
-                                <p:inputText id="skillsFramworksLanguages"
+                                <p:inputTextarea id="skillsFramworksLanguages"
                                              value="#{crudView.selectedResume.information.skillsFramworksLanguages}"
                                              required="true"/>
                             </div>
                             <div class="field">
                                 <p:outputLabel for="skillsOs">Systèmes d'exploitation</p:outputLabel>
-                                <p:inputText id="skillsOs" value="#{crudView.selectedResume.information.skillsOs}"
+                                <p:inputTextarea id="skillsOs" value="#{crudView.selectedResume.information.skillsOs}"
                                              required="true"/>
                             </div>
                             <div class="field">
                                 <p:outputLabel for="skillsMethods">Méthodes</p:outputLabel>
-                                <p:inputText id="skillsMethods"
+                                <p:inputTextarea id="skillsMethods"
                                              value="#{crudView.selectedResume.information.skillsMethods}"
                                              required="true"/>
                             </div>
                             <div class="field">
                                 <p:outputLabel for="skillsDb">Base de données</p:outputLabel>
-                                <p:inputText id="skillsDb" value="#{crudView.selectedResume.information.skillsDb}"
+                                <p:inputTextarea id="skillsDb" value="#{crudView.selectedResume.information.skillsDb}"
                                              required="true"/>
                             </div>
                             <div class="field">
                                 <p:outputLabel for="skillsTools">Outils</p:outputLabel>
-                                <p:inputText id="skillsTools" value="#{crudView.selectedResume.information.skillsTools}"
+                                <p:inputTextarea id="skillsTools" value="#{crudView.selectedResume.information.skillsTools}"
                                              required="true"/>
                             </div>
 
@@ -243,7 +243,7 @@
                                     </div>
                                     <div class="field">
                                         <p:outputLabel>Description</p:outputLabel>
-                                        <p:inputText value="#{experience.jobDescription}" required="true"/>
+                                        <p:inputTextarea value="#{experience.jobDescription}" required="true"/>
                                     </div>
                                     <p:commandButton value="Nouvelle fonction" action="#{crudView.createFonction(experience)}"
                                                      immediate="true"
@@ -278,7 +278,7 @@
 
                                     <div class="field">
                                         <p:outputLabel>Les compétences occasionnées</p:outputLabel>
-                                        <p:inputText value="#{experience.jobSkills}" required="true"/>
+                                        <p:inputTextarea value="#{experience.jobSkills}" required="true"/>
                                     </div>
                                 </div>
                             </ui:repeat>

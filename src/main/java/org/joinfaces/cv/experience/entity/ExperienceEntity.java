@@ -2,6 +2,7 @@ package org.joinfaces.cv.experience.entity;
 
 import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
+import jakarta.persistence.Lob;
 import lombok.*;
 import org.joinfaces.common.entity.AbstractEntity;
 
@@ -24,6 +25,7 @@ public class ExperienceEntity extends AbstractEntity {
 
 	private String jobProject;
 
+	@Lob
 	private String jobDescription;
 
 	@ElementCollection
@@ -34,5 +36,6 @@ public class ExperienceEntity extends AbstractEntity {
 	@ElementCollection
 	private List<String> jobTasks = new ArrayList<>();
 
+	@Lob
 	private String jobSkills;
 }
