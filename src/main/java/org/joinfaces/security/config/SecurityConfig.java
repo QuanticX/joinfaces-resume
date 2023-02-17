@@ -71,6 +71,7 @@ public class SecurityConfig {
                     .defaultSuccessUrl("/index.jsf")
                     .and()
                     .logout()
+                    .logoutUrl("/logout.jsf")
                     .logoutSuccessUrl("/login.jsf")
                     .deleteCookies("JSESSIONID");
             return http.build();

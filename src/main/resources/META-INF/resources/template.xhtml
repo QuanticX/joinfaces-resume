@@ -30,10 +30,14 @@
                 </p:dialog>
                 <div class="ui-fluid left">
                     <p:menubar>
-                        <p:menuitem value="CVs" url="/index.jsf"/>
-                        <p:menuitem value="Edition de CVs" url="/my-resumes.jsf"/>
-                        <p:menuitem value="Connexion" url="/login.jsf"/>
-                        <p:menuitem value="Inscription" url="/register.jsf"/>
+                        <p:menuitem value="CVs" id="cvs" url="/index.jsf"/>
+                        <p:menuitem value="Edition de CVs" id="edit-cvs" url="/my-resumes.jsf"/>
+                        <p:menuitem value="Connexion" id="login" url="/login.jsf"
+                            rendered="#{not sec:isFullyAuthenticated()}"/>
+                        <p:menuitem value="Inscription" id="register" url="/register.jsf"
+                            rendered="#{not sec:isFullyAuthenticated()}"/>
+                        <p:menuitem value="Deconnexion" id="logout" url="/logout.jsf"
+                            rendered="#{sec:isFullyAuthenticated()}"/>
                     </p:menubar>
 
 
