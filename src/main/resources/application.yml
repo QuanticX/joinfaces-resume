@@ -38,3 +38,7 @@ spring:
       ddl-auto: create-drop
   web:
     locale: fr_FR
+
+  application:
+    admin:
+      enabled: true
