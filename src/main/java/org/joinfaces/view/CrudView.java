@@ -34,7 +34,7 @@ import java.util.List;
 import java.util.Map;
 
 @Component
-@SessionScoped
+@ViewScoped
 public class CrudView implements Serializable {
 
 

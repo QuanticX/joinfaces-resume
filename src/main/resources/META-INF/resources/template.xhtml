@@ -7,6 +7,7 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:pe="http://primefaces.org/ui/extensions"
       xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:pm="http://primefaces.org/morpheus"
 >
 
 <h:head>
@@ -30,23 +31,27 @@
                 </p:dialog>
                 <div class="ui-fluid left">
                     <p:menubar>
-                        <p:menuitem value="CVs" id="cvs" url="/index.jsf"/>
-                        <p:menuitem value="Edition de CVs" id="edit-cvs" url="/my-resumes.jsf"/>
-                        <p:menuitem value="Connexion" id="login" url="/login.jsf"
-                            rendered="#{not sec:isFullyAuthenticated()}"/>
-                        <p:menuitem value="Inscription" id="register" url="/register.jsf"
-                            rendered="#{not sec:isFullyAuthenticated()}"/>
-                        <p:menuitem value="Deconnexion" id="logout" url="/logout.jsf"
-                            rendered="#{sec:isFullyAuthenticated()}"/>
+                        <p:submenu label="Menu" icon="pi pi-fw pi-bars">
+                            <p:menuitem value="CVs" id="cvs" url="/index.jsf"/>
+                            <p:menuitem value="Edition de CVs" id="edit-cvs" url="/my-resumes.jsf"/>
+
+                            <p:divider/>
+                            <p:menuitem value="Connexion" id="login" url="/login.jsf"
+                                        rendered="#{not sec:isFullyAuthenticated()}"/>
+                            <p:menuitem value="Inscription" id="register" url="/register.jsf"
+                                        rendered="#{not sec:isFullyAuthenticated()}"/>
+                            <p:menuitem value="Deconnexion" id="logout" url="/logout.jsf"
+                                        rendered="#{sec:isFullyAuthenticated()}"/>
+                        </p:submenu>
                     </p:menubar>
 
 
                     <p:spacer height="10"/>
                 </div>
             </h:form>
-                <div class="ui-fluid center">
-                    <ui:insert name="content"/>
-                </div>
+            <div class="ui-fluid center">
+                <ui:insert name="content"/>
+            </div>
 
 
         </pe:layoutPane>
