@@ -111,7 +111,7 @@
                             <f:setPropertyActionListener value="#{resume}" target="#{crudView.selectedResume}"/>
                             <p:resetInput target=":dialogs:manage-resume-content"/>
                         </p:commandButton>
-                        <p:commandButton id="downloadButton"
+                        <p:commandButton id="downloadButtonDocx"
                                          ajax="false" styleClass="rounded-button ui-button-warning"
                                          onclick="PrimeFaces.monitorDownload(start, stop);" icon="pi pi-upload"  >
                             <f:setPropertyActionListener value="#{resume}" target="#{crudView.selectedResume}"/>

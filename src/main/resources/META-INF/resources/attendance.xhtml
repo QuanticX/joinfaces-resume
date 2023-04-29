@@ -21,22 +21,29 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="table-responsive">
-                        <p:tabView class="table table-striped custom-table mb-0"
-                                   value="#{daysWorkedView.daysToWork}"
-                                   var="dayToWork">
-                            <div class="tabl">
-                                <p:tab titleStyleClass="tabl"
-                                        title="#{dayToWork.dayOfMonth}">
-                                    <div style="text-align: left">
-                                        <p:selectBooleanCheckbox
-                                                value="#{daysWorkedView.daysWorked.get(dayToWork).morning}"/> : Matin
-                                        <br/>
-                                        <p:selectBooleanCheckbox
-                                                value="#{daysWorkedView.daysWorked.get(dayToWork).afternoon}"/> : Après-midi
-                                    </div>
-                                </p:tab>
-                            </div>
-                        </p:tabView>
+                        <h:form>
+                            <p:tabView class="table table-striped custom-table mb-0"
+                                       value="#{daysWorkedView.daysToWork}"
+                                       var="dayToWork">
+                                <div class="tabl">
+                                    <p:tab titleStyleClass="tabl"
+                                           title="#{dayToWork.dayOfMonth}">
+                                        <div style="text-align: left">
+                                            <p:selectBooleanCheckbox
+                                                    value="#{daysWorkedView.daysWorked.get(dayToWork).morning}"/> : Matin
+                                            <br/>
+                                            <p:selectBooleanCheckbox
+                                                    value="#{daysWorkedView.daysWorked.get(dayToWork).afternoon}"/> : Après-midi
+                                        </div>
+                                    </p:tab>
+                                </div>
+                            </p:tabView>
+
+                            <p:commandButton value="Jounées travaillées" icon="pi pi-arrow-down"
+                                             styleClass="ui-button-outlined">
+                                <p:fileDownload value="#{daysWorkedView.download()}"/>
+                            </p:commandButton>
+                        </h:form>
                     </div>
                 </div>
             </div>

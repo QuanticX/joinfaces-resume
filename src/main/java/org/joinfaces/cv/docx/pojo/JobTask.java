@@ -1,4 +1,4 @@
-package org.joinfaces.docx.pojo;
+package org.joinfaces.cv.docx.pojo;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

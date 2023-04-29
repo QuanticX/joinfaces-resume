@@ -1,4 +1,4 @@
-package org.joinfaces.docx.pojo;
+package org.joinfaces.cv.docx.pojo;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,8 +9,8 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class FormationYear {
+public class FormationTitle {
 
-	private String formationYear;
+	private String formationTitle;
 
 }

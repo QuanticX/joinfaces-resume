@@ -1,18 +1,11 @@
 package org.joinfaces.view;
 
 import jakarta.annotation.PostConstruct;
-import jakarta.el.MethodExpression;
 import jakarta.enterprise.context.SessionScoped;
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.context.FacesContext;
-import jakarta.faces.event.AbortProcessingException;
-import jakarta.faces.event.ActionEvent;
-import jakarta.faces.event.ActionListener;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
-import jakarta.inject.Named;
-import lombok.Getter;
-import lombok.Setter;
 import org.joinfaces.cv.certification.entity.CertificationEntity;
 import org.joinfaces.cv.experience.entity.ExperienceEntity;
 import org.joinfaces.cv.formation.entity.FormationEntity;
@@ -20,21 +13,18 @@ import org.joinfaces.cv.information.entity.InformationEntity;
 import org.joinfaces.cv.language.entity.LanguageEntity;
 import org.joinfaces.cv.resume.entity.ResumeEntity;
 import org.joinfaces.cv.resume.service.ResumeService;
-import org.joinfaces.docx.FillTemplateResumeDocx;
+import org.joinfaces.cv.docx.FillTemplateResumeDocx;
 import org.primefaces.PrimeFaces;
 import org.primefaces.model.StreamedContent;
 import org.springframework.stereotype.Component;
-import org.springframework.web.context.annotation.SessionScope;
 
 import java.io.IOException;
 import java.io.Serializable;
-import java.time.Year;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 @Component
-@ViewScoped
+@SessionScoped
 public class CrudView implements Serializable {
 
 

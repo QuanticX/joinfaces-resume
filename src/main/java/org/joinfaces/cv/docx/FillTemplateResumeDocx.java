@@ -1,4 +1,4 @@
-package org.joinfaces.docx;
+package org.joinfaces.cv.docx;
 
 import java.io.ByteArrayInputStream;
 import java.io.FileInputStream;
@@ -9,13 +9,12 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import jakarta.faces.context.FacesContext;
 import org.joinfaces.cv.certification.entity.CertificationEntity;
+import org.joinfaces.cv.docx.pojo.*;
 import org.joinfaces.cv.experience.entity.ExperienceEntity;
 import org.joinfaces.cv.formation.entity.FormationEntity;
 import org.joinfaces.cv.language.entity.LanguageEntity;
 import org.joinfaces.cv.resume.entity.ResumeEntity;
-import org.joinfaces.docx.pojo.*;
 
 import com.deepoove.poi.XWPFTemplate;
 import org.primefaces.model.DefaultStreamedContent;

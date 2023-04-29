@@ -1,15 +1,20 @@
 package org.joinfaces.attendance.view;
 
 import jakarta.annotation.PostConstruct;
+import jakarta.enterprise.context.SessionScoped;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import lombok.Getter;
 import lombok.Setter;
 import org.joinfaces.attendance.dto.Day;
+import org.joinfaces.attendance.xlsx.DaysWorkedExcel;
+import org.primefaces.model.DefaultStreamedContent;
+import org.primefaces.model.StreamedContent;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
+import java.io.*;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -20,8 +25,8 @@ import java.util.stream.Collectors;
 @Getter
 @Setter
 @Component
-@ViewScoped
-public class DaysWorkedView {
+@SessionScoped
+public class DaysWorkedView implements Serializable{
 
     @Inject
     private RestTemplate restTemplate;
@@ -54,5 +59,23 @@ public class DaysWorkedView {
                 daysWorked.put(dayOfMonth,new Day());
             }
         }
+    }
+
+    public StreamedContent download() throws IOException {
+        File file = DaysWorkedExcel.mapDaysWorkedToExcelOutputStream(daysWorked);
+
+        StreamedContent streamedContent =
+                DefaultStreamedContent.builder()
+                        .name(daysToWork.get(0) +"_" + daysToWork.get(daysToWork.size()-1)+".xls")
+                        .contentType("application/vnd.ms-excel")
+                        .stream(() -> {
+                            try {
+                                return new ByteArrayInputStream(new FileInputStream(file).readAllBytes());
+                            } catch (IOException e) {
+                                throw new RuntimeException(e);
+                            }
+                        })
+                        .build();
+        return streamedContent;
     }
 }
