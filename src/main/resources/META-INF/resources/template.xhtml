@@ -3,18 +3,17 @@
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html lang="fr-FR"
       xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
       xmlns:pe="http://primefaces.org/ui/extensions"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
->
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
 <h:head>
-    <title>.:: JoinFaces Resume ::.</title>
+    <title>.:: JoinFaces Example ::.</title>
     <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
     <link href="#{resource['images/favicon.ico']}" rel="shortcut icon"/>
-    <!--h:outputStylesheet library="css" name="example.css" />
-    <h:outputScript library="js" name="example.js" /-->
+    <h:outputStylesheet library="css" name="example.css"/>
+    <h:outputScript library="js" name="example.js"/>
 </h:head>
 
 <h:body>
@@ -33,6 +32,7 @@
                         <p:submenu label="Menu" icon="pi pi-fw pi-bars">
                             <p:menuitem value="CVs" id="cvs" url="/index.jsf"/>
                             <p:menuitem value="Edition de CVs" id="edit-cvs" url="/my-resumes.jsf"/>
+                            <p:menuitem value="Jours travaillés" id="edit-days" url="/attendance.jsf"/>
 
                             <p:divider/>
                             <p:menuitem value="Connexion" id="login" url="/login.jsf"

@@ -14,3 +14,7 @@
 .center {
   text-align: center;
 }
+
+.left {
+  text-align: left !important;
+}
