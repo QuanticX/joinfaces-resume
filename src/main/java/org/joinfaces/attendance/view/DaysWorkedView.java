@@ -54,7 +54,7 @@ public class DaysWorkedView implements Serializable{
             LocalDate dayOfMonth = currentDate.withDayOfMonth(i);
             if(dayOfMonth.getDayOfWeek() != DayOfWeek.SATURDAY
                     && dayOfMonth.getDayOfWeek() != DayOfWeek.SUNDAY
-                    && !holidays.contains(holidays)){
+                    && !holidays.contains(dayOfMonth)){
                 daysToWork.add(dayOfMonth);
                 daysWorked.put(dayOfMonth,new Day());
             }
