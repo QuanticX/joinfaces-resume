@@ -14,31 +14,36 @@
     <ui:define name="content">
         <div class="content">
             <div class="row">
-                <div class="col-sm-12">
-                    <h4 class="page-title">Jours travaillés</h4>
-                </div>
-            </div>
-            <div class="row">
                 <div class="col-lg-12">
                     <div class="table-responsive">
                         <h:form>
-                            <p:tabView class="table table-striped custom-table mb-0"
-                                       value="#{daysWorkedView.daysToWork}"
-                                       var="dayToWork">
-                                <div class="tabl">
-                                    <p:tab titleStyleClass="tabl"
-                                           title="#{dayToWork.dayOfMonth}">
-                                        <div style="text-align: left">
-                                            <p:selectBooleanCheckbox
-                                                    value="#{daysWorkedView.daysWorked.get(dayToWork).morning}"/> : Matin
-                                            <br/>
-                                            <p:selectBooleanCheckbox
-                                                    value="#{daysWorkedView.daysWorked.get(dayToWork).afternoon}"/> : Après-midi
-                                        </div>
-                                    </p:tab>
-                                </div>
-                            </p:tabView>
+                            <!-- dataTable -->
+                            <p:dataTable id="dt-days" widgetVar="dtDays" var="day" value="#{daysWorkedView.daysToWork}"
+                                         reflow="true" styleClass="days-table"
+                                         rowKey="#{day.dayOfMonth}" paginator="false" rows="30">
+                                <!-- Header with search -->
+                                <f:facet name="header">
+                                    <div class="days-table-header">
+                                        <span style="font-weight: bold">Jours travaillés</span>
+                                        <span class="filter-container ui-input-icon-left"> <i class="pi pi-search"></i>
+                                            <p:inputText id="dayFilter" onkeyup="PF('dtDays').filter()" placeholder="Recherche"/>
+                                        </span>
+                                    </div>
+                                </f:facet>
 
+                                <p:column headerText="Jour" sortBy="#{day.dayOfMonth}" filterBy="#{day.dayOfMonth}">
+                                    <h:outputText value="#{day.dayOfMonth}/#{day.monthValue}/#{day.year}" />
+                                </p:column>
+
+                                <p:column headerText="Matin" sortBy="#{day.dayOfMonth}" filterBy="#{day.dayOfMonth}">
+                                    <p:selectBooleanCheckbox value="#{daysWorkedView.daysWorked.get(day).morning}" itemLabel="Travaillé"/>
+                                </p:column>
+
+                                <p:column headerText="Après-midi" sortBy="#{day.dayOfMonth}" filterBy="#{day.dayOfMonth}">
+                                    <p:selectBooleanCheckbox value="#{daysWorkedView.daysWorked.get(day).afternoon}" itemLabel="Travaillé"/>
+                                </p:column>
+
+                            </p:dataTable>
                             <p:commandButton value="Jounées travaillées" icon="pi pi-arrow-down"
                                              styleClass="ui-button-outlined">
                                 <p:fileDownload value="#{daysWorkedView.download()}"/>

@@ -1,9 +1,6 @@
 package org.joinfaces.cv.docx;
 
-import java.io.ByteArrayInputStream;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -22,7 +19,7 @@ import org.primefaces.model.StreamedContent;
 import org.springframework.stereotype.Component;
 
 @Component
-public class FillTemplateResumeDocx {
+public class FillTemplateResumeDocx implements Serializable {
 
 	private static final String in = "Dossier_de_Competences_template.docx";
 	private static final String out = "/temp/"+"out_template.docx";
